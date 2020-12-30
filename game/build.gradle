@@ -1,31 +1,24 @@
 plugins {
-    id 'org.springframework.boot' version '2.4.1'
     id 'io.spring.dependency-management' version '1.0.10.RELEASE'
-    id 'java'
 }
 
-group = 'pl.uw.mimuw.jnp.rock.paper.money'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+subprojects {
 
-configurations {
-    compileOnly {
-        extendsFrom annotationProcessor
+    apply plugin: 'java'
+    apply plugin: 'io.spring.dependency-management'
+    apply plugin: 'java-library'
+
+    group = 'pl.uw.mim.jnp.rock.paper.money'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = '11'
+
+    repositories {
+        mavenCentral()
     }
-}
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-webflux'
-    compileOnly 'org.projectlombok:lombok'
-    annotationProcessor 'org.projectlombok:lombok'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'io.projectreactor:reactor-test'
-}
-
-test {
-    useJUnitPlatform()
+    dependencyManagement {
+        imports {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:2.1.7.RELEASE")
+        }
+    }
 }
