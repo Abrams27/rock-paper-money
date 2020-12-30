@@ -1,1 +1,6 @@
 rootProject.name = 'matchmaking'
+
+include 'api'
+include 'connectors'
+include 'persistence'
+include 'app'
