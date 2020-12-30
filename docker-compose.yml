@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  game:
+    image: jnp-rock-paper-money/game
+    build:
+      context: ./game
+
+  gateway:
+    image: jnp-rock-paper-money/gateway
+    build:
+      context: ./gateway
+
+  matchmaking:
+    image: jnp-rock-paper-money/matchmaking
+    build:
+      context: ./matchmaking
+
+  user:
+    image: jnp-rock-paper-money/user
+    build:
+      context: ./user
