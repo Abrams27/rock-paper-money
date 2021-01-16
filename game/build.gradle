@@ -18,7 +18,12 @@ subprojects {
 
     dependencyManagement {
         imports {
-            mavenBom("org.springframework.boot:spring-boot-dependencies:2.1.7.RELEASE")
+            mavenBom 'org.springframework.boot:spring-boot-dependencies:2.1.3.RELEASE'
+        }
+
+        dependencies {
+            dependency 'org.springframework.data:spring-data-redis:2.1.3.RELEASE'
+            dependency 'redis.clients:jedis:2.9.1'
         }
     }
 }

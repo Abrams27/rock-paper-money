@@ -3,6 +3,13 @@ repositories {
 }
 
 dependencies {
+    implementation('org.springframework.data:spring-data-redis')
+    implementation 'redis.clients:jedis'
+
+    compileOnly 'org.projectlombok:lombok'
+
+    annotationProcessor 'org.projectlombok:lombok'
+
 }
 
 test {

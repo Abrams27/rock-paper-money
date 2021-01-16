@@ -11,6 +11,7 @@ public class EnterGame {
 
   public Mono<Void> execute(GameEntranceDto gameEntrance) {
     // TODO
+
     return Mono.empty();
   }
 }
