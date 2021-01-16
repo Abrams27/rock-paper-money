@@ -5,4 +5,4 @@ import pl.uw.mim.jnp.rock.paper.money.persistence.redis.entries.GameEntity;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GameRepository extends CrudRepository<GameEntity, String> { }
+public interface GameRepository extends CrudRepository<GameEntity, Long> { }
