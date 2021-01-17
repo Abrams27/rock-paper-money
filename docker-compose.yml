@@ -1,22 +1,69 @@
 version: "3"
 
+networks:
+  back-net:
+    driver: bridge
+  front-net:
+    driver: bridge
+
 services:
+  zookeper:
+    image: 'bitnami/zookeeper:latest'
+    networks:
+      - front-net
+      - back-net
+    ports:
+      - '2181:2181'
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+
+  kafka:
+    image: 'bitnami/kafka:latest'
+    networks:
+      - back-net
+    ports:
+      - '9092:9092'
+    environment:
+      - KAFKA_BROKER_ID:1
+      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeper:2181
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    depends_on:
+      - zookeper
+
   game:
     image: jnp-rock-paper-money/game
+    networks:
+      - back-net
     build:
       context: ./game
+    depends_on:
+      - kafka
 
   gateway:
     image: jnp-rock-paper-money/gateway
+    networks:
+        - back-net
+        - front-net
     build:
       context: ./gateway
+    depends_on:
+      - kafka
 
   matchmaking:
     image: jnp-rock-paper-money/matchmaking
+    networks:
+        - back-net
     build:
       context: ./matchmaking
+    depends_on:
+      - kafka
 
   user:
     image: jnp-rock-paper-money/user
+    networks:
+        - back-net
     build:
       context: ./user
+    depends_on:
+      - kafka
