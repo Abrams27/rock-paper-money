@@ -77,4 +77,9 @@ public class RedisGameRepository {
         .map(gameEntity -> gameEntity.getPlayerMove(playerNumber))
         .map(PlayerMoveEntity::getPlayerId);
   }
+
+  public Optional<Integer> getStake(Long gameId) {
+    return gameRepository.findById(gameId)
+        .map(GameEntity::getStake);
+  }
 }

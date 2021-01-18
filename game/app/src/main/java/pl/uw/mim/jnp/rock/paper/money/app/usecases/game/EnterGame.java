@@ -39,9 +39,10 @@ public class EnterGame {
     Long player1Id = gameService.getPlayer1Id(gameId);
     Long player2Id = gameService.getPlayer2Id(gameId);
     GameStatus gameStatus = gameService.getGameStatus(gameId);
+    Integer stake = gameService.getStake(gameId);
 
     if (!gameStatus.equals(GameStatus.IN_PROGRESS)) {
-      notificationService.notifyPlayersAboutResult(gameId, player1Id, player2Id, gameStatus);
+      notificationService.notifyPlayersAboutResult(gameId, player1Id, player2Id, gameStatus, stake);
     }
   }
 }

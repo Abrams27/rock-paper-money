@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  pl.uw.mim.jnp.rock.paper.money.connectors.kafka.config.KafkaTopicConfig

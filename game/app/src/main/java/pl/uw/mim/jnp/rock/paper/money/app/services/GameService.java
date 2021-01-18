@@ -38,6 +38,12 @@ public class GameService {
         .orElseThrow();
   }
 
+  public Integer getStake(Long gameId) {
+    return redisGameRepository
+        .getStake(gameId)
+        .orElseThrow();
+  }
+
   public GameStatus getGameStatus(Long gameId) {
     Optional<String> player1Sign = redisGameRepository.getPlayerHandSign(gameId, 1);
     Optional<String> player2Sign = redisGameRepository.getPlayerHandSign(gameId, 2);
