@@ -11,6 +11,6 @@ public interface UserApi {
 
   @GetMapping("/{id}/history")
   Flux<GameHistoryDto> getGamesHistory(
-      @PathVariable("id") Long userIdd);
+      @PathVariable("id") Long userId);
 
 }
