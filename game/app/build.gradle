@@ -7,6 +7,10 @@ repositories {
 }
 
 dependencies {
+    api project(':api')
+    api project(':persistence')
+    api project(':connectors')
+
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
 
     compileOnly 'org.projectlombok:lombok'

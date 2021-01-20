@@ -1,50 +1,58 @@
-version: "3"
+version: '3.4'
 
 networks:
-  back-net:
+  backend:
     driver: bridge
-  front-net:
+  frontend:
     driver: bridge
 
 services:
-  zookeper:
-    image: 'bitnami/zookeeper:latest'
+  zookeeper:
+    image: 'confluentinc/cp-zookeeper:latest'
     networks:
-      - front-net
-      - back-net
-    ports:
-      - '2181:2181'
+      - frontend
+      - backend
     environment:
-      - ALLOW_ANONYMOUS_LOGIN=yes
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
 
   kafka:
-    image: 'bitnami/kafka:latest'
+    image: 'confluentinc/cp-kafka:latest'
     networks:
-      - back-net
-    ports:
-      - '9092:9092'
+      - backend
     environment:
-      - KAFKA_BROKER_ID:1
-      - KAFKA_CFG_ZOOKEEPER_CONNECT=zookeper:2181
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://localhost:9092
-      - ALLOW_PLAINTEXT_LISTENER=yes
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://kafka:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     depends_on:
-      - zookeper
+      - zookeeper
+
+  redis:
+    image: 'redis:latest'
+    networks:
+      - backend
 
   game:
     image: jnp-rock-paper-money/game
     networks:
-      - back-net
+      - backend
     build:
       context: ./game
     depends_on:
       - kafka
+      - redis
+#    for testing
+    ports:
+      - 8080:8080
 
   gateway:
     image: jnp-rock-paper-money/gateway
     networks:
-        - back-net
-        - front-net
+        - backend
+        - frontend
     build:
       context: ./gateway
     depends_on:
@@ -53,7 +61,7 @@ services:
   matchmaking:
     image: jnp-rock-paper-money/matchmaking
     networks:
-        - back-net
+        - backend
     build:
       context: ./matchmaking
     depends_on:
@@ -62,7 +70,7 @@ services:
   user:
     image: jnp-rock-paper-money/user
     networks:
-        - back-net
+        - backend
     build:
       context: ./user
     depends_on:
