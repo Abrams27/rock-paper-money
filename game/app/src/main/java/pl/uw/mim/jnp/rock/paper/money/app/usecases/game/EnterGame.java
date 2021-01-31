@@ -7,6 +7,7 @@ import pl.uw.mim.jnp.rock.paper.money.api.models.GameEntranceDto;
 import pl.uw.mim.jnp.rock.paper.money.app.services.GameService;
 import pl.uw.mim.jnp.rock.paper.money.app.services.NotificationService;
 import pl.uw.mim.jnp.rock.paper.money.app.services.models.GameStatus;
+import pl.uw.mim.jnp.rock.paper.money.app.services.models.PlayersNotification;
 import reactor.core.publisher.Mono;
 
 @Component
@@ -17,10 +18,9 @@ public class EnterGame {
   private final NotificationService notificationService;
 
   public Mono<Void> execute(GameEntranceDto gameEntrance) {
-    enterGameOrThrow(gameEntrance);
-    checkGameStatusAndSendNotificationIfFinished(gameEntrance);
-
-    return Mono.empty();
+    return Mono.just(gameEntrance)
+        .doOnNext(this::enterGameOrThrow)
+        .flatMap(this::checkGameStatusAndCheckIfGameEnded);
   }
 
   private void enterGameOrThrow(GameEntranceDto gameEntrance) {
@@ -33,7 +33,7 @@ public class EnterGame {
     }
   }
 
-  private void checkGameStatusAndSendNotificationIfFinished(GameEntranceDto gameEntrance) {
+  private Mono<Void> checkGameStatusAndCheckIfGameEnded(GameEntranceDto gameEntrance) {
     Long gameId = gameEntrance.getGameId();
 
     Long player1Id = gameService.getPlayer1Id(gameId);
@@ -41,8 +41,20 @@ public class EnterGame {
     GameStatus gameStatus = gameService.getGameStatus(gameId);
     Integer stake = gameService.getStake(gameId);
 
-    if (!gameStatus.equals(GameStatus.IN_PROGRESS)) {
-      notificationService.notifyPlayersAboutResult(gameId, player1Id, player2Id, gameStatus, stake);
-    }
+    PlayersNotification playersNotification = createPlayersNotification(gameId, player1Id, player2Id, gameStatus, stake);
+
+    return Mono.just(playersNotification)
+        .filter(notification -> !notification.getGameStatus().equals(GameStatus.IN_PROGRESS))
+        .flatMap(notificationService::notifyPlayersAboutResult);
+  }
+
+  private PlayersNotification createPlayersNotification(Long gameId, Long player1, Long player2, GameStatus gameStatus, Integer stake) {
+    return PlayersNotification.builder()
+        .gameId(gameId)
+        .player1(player1)
+        .player2(player2)
+        .gameStatus(gameStatus)
+        .stake(stake)
+        .build();
   }
 }
