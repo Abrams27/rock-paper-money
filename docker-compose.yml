@@ -48,30 +48,30 @@ services:
     ports:
       - 8080:8080
 
-  gateway:
-    image: jnp-rock-paper-money/gateway
-    networks:
-        - backend
-        - frontend
-    build:
-      context: ./gateway
-    depends_on:
-      - kafka
-
-  matchmaking:
-    image: jnp-rock-paper-money/matchmaking
-    networks:
-        - backend
-    build:
-      context: ./matchmaking
-    depends_on:
-      - kafka
-
-  user:
-    image: jnp-rock-paper-money/user
-    networks:
-        - backend
-    build:
-      context: ./user
-    depends_on:
-      - kafka
+#  gateway:
+#    image: jnp-rock-paper-money/gateway
+#    networks:
+#        - backend
+#        - frontend
+#    build:
+#      context: ./gateway
+#    depends_on:
+#      - kafka
+#
+#  matchmaking:
+#    image: jnp-rock-paper-money/matchmaking
+#    networks:
+#        - backend
+#    build:
+#      context: ./matchmaking
+#    depends_on:
+#      - kafka
+#
+#  user:
+#    image: jnp-rock-paper-money/user
+#    networks:
+#        - backend
+#    build:
+#      context: ./user
+#    depends_on:
+#      - kafka

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import pl.uw.mim.jnp.rock.paper.money.api.models.HandSign;
 import pl.uw.mim.jnp.rock.paper.money.app.services.models.GameStatus;
 import pl.uw.mim.jnp.rock.paper.money.persistence.redis.api.RedisGameRepository;
+import reactor.core.publisher.Mono;
 
 @Service
 @AllArgsConstructor
@@ -13,8 +14,8 @@ public class GameService {
 
   private final RedisGameRepository redisGameRepository;
 
-  public void registerGame(Long gameId, Long player1Id, Long player2Id, Integer stake) {
-    redisGameRepository.saveGameEntrance(gameId, player1Id, player2Id, stake);
+  public boolean registerGame(Long gameId, Long player1Id, Long player2Id, Integer stake) {
+    return redisGameRepository.saveGameEntrance(gameId, player1Id, player2Id, stake);
   }
 
   public boolean enterGame(Long gameId, Long playerId, HandSign handSign) {
