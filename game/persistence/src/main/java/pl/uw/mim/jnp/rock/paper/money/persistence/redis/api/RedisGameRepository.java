@@ -15,10 +15,17 @@ public class RedisGameRepository {
 
   private final GameRepository gameRepository;
 
-  public void saveGameEntrance(Long gameId, Long player1Id, Long player2Id, Integer stake) {
-    GameEntity gameEntity = GameEntityCreator.from(gameId, player1Id, player2Id, stake);
+  public boolean saveGameEntrance(Long gameId, Long player1Id, Long player2Id, Integer stake) {
+    boolean isGameAlreadyRegistered =  gameRepository.findById(gameId).isPresent();
 
+    if (isGameAlreadyRegistered) {
+      return false;
+    }
+
+    GameEntity gameEntity = GameEntityCreator.from(gameId, player1Id, player2Id, stake);
     gameRepository.save(gameEntity);
+
+    return true;
   }
 
   public boolean setPlayerMoveIfItIsCorrectPlayer(
