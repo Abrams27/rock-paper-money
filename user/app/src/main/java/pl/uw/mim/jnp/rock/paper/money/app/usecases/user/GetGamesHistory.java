@@ -2,18 +2,17 @@ package pl.uw.mim.jnp.rock.paper.money.app.usecases.user;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import pl.uw.mim.jnp.rock.paper.money.api.models.history.user.GameHistoryDto;
-import pl.uw.mim.jnp.rock.paper.money.app.services.GameHistoryService;
-import reactor.core.publisher.Flux;
+import pl.uw.mim.jnp.rock.paper.money.api.models.history.user.UserInfoDto;
+import pl.uw.mim.jnp.rock.paper.money.app.services.UserInfoService;
+import reactor.core.publisher.Mono;
 
 @Component
 @AllArgsConstructor
 public class GetGamesHistory {
 
-  private final GameHistoryService gameHistoryService;
+  private final UserInfoService userInfoService;
 
-  public Flux<GameHistoryDto> execute(Long userId) {
-    return gameHistoryService.getHistoryForUser(userId);
+  public Mono<UserInfoDto> execute(String username) {
+    return userInfoService.getHistoryForUser(username);
   }
-
 }
