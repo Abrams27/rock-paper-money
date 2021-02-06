@@ -1,4 +1,4 @@
-package pl.uw.mim.jnp.rock.paper.money.api.models.history.user;
+package pl.uw.mim.jnp.rock.paper.money.api.models.user;
 
 import java.util.List;
 import lombok.Builder;
@@ -12,5 +12,5 @@ public class UserInfoDto {
 
   private Integer balance;
 
-  private List<GameHistoryDto> gameHistory;
+  private List<UserGameHistoryDto> gameHistory;
 }
