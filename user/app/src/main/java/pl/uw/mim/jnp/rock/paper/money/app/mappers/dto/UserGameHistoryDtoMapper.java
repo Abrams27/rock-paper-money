@@ -11,7 +11,7 @@ public class UserGameHistoryDtoMapper {
 
   public UserGameHistoryDto map(GameHistoryEntity gameHistoryEntity) {
     return UserGameHistoryDto.builder()
-        .opponentsUsername(gameHistoryEntity.getOpponentsUsername())
+        .opponentsUsername(gameHistoryEntity.getOpponentUsername())
         .userGameResult(UserGameResultMapper.map(gameHistoryEntity.getGameResult()))
         .stake(gameHistoryEntity.getStake())
         .build();

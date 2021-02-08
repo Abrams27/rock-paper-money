@@ -1,11 +1,7 @@
 package pl.uw.mim.jnp.rock.paper.money.persistence.postgres.entries.user;
 
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -25,7 +21,7 @@ import pl.uw.mim.jnp.rock.paper.money.persistence.postgres.entries.history.GameH
 @AllArgsConstructor(access = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PACKAGE)
 @Entity
-@Table
+@Table(name = "USER_INFO")
 public class UserInfoEntity {
 
   @Id
@@ -33,6 +29,10 @@ public class UserInfoEntity {
 
   private Integer balance;
 
-  @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+  @OneToMany(mappedBy="userInfoEntity")
   private List<GameHistoryEntity> gameHistory;
+
+  public void addGameHistory(GameHistoryEntity gameHistoryEntity) {
+    gameHistory.add(gameHistoryEntity);
+  }
 }

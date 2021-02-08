@@ -15,16 +15,17 @@ public class PostgresUserInfoRepository {
 
   private final UserInfoRepository userInfoRepository;
 
-  public Optional<UserInfoEntity> getHistoryForUserId(String username) {
+  public Optional<UserInfoEntity> getHistoryForUser(String username) {
     userInfoRepository.save(UserInfoEntity.builder()
         .username("meme")
         .balance(2137)
-        .gameHistory(List.of(
-            GameHistoryEntity.builder().id(2137L)
-                .opponentsUsername("meme xd")
-                .stake(23132)
-                .gameResult(GameResult.WIN)
-                .build()))
+        .gameHistory(List.of())
+        .build());
+
+    userInfoRepository.save(UserInfoEntity.builder()
+        .username("chuj")
+        .balance(213317)
+        .gameHistory(List.of())
         .build());
 
     return userInfoRepository.findByUsername(username);

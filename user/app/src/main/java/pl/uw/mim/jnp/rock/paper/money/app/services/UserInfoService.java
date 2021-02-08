@@ -14,7 +14,7 @@ public class UserInfoService {
   private final PostgresUserInfoRepository postgresUserInfoRepository;
 
   public Mono<UserInfoDto> getHistoryForUser(String username) {
-    return Mono.justOrEmpty(postgresUserInfoRepository.getHistoryForUserId(username))
+    return Mono.justOrEmpty(postgresUserInfoRepository.getHistoryForUser(username))
         .map(UserInfoDtoMapper::map);
   }
 }
