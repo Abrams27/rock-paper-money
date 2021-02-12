@@ -10,6 +10,4 @@ import org.springframework.stereotype.Component;
 public class AuthProperties {
 
   private String secret;
-
-  private Integer timeout;
 }
