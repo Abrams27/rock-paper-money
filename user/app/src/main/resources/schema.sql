@@ -1,5 +1,6 @@
 CREATE TABLE USER_INFO (
     username                TEXT        NOT NULL    PRIMARY KEY,
+    password                TEXT        NOT NULL,
     balance                 INTEGER     NOT NULL
 );
 

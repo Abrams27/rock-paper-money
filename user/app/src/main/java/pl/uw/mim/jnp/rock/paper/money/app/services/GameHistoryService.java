@@ -7,7 +7,6 @@ import pl.uw.mim.jnp.rock.paper.money.app.mappers.entity.GameResultMapper;
 import pl.uw.mim.jnp.rock.paper.money.persistence.postgres.api.PostgresGameHistoryRepository;
 import pl.uw.mim.jnp.rock.paper.money.persistence.postgres.entries.history.GameHistoryEntity;
 import pl.uw.mim.jnp.rock.paper.money.persistence.postgres.entries.history.GameResult;
-import pl.uw.mim.jnp.rock.paper.money.persistence.postgres.entries.user.UserInfoEntity;
 import reactor.core.publisher.Mono;
 
 @Service

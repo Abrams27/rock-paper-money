@@ -27,6 +27,8 @@ public class UserInfoEntity {
   @Id
   private String username;
 
+  private String password;
+
   private Integer balance;
 
   @OneToMany(mappedBy="userInfoEntity")

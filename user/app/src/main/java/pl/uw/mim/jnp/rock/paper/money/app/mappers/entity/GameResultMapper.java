@@ -16,6 +16,10 @@ public class GameResultMapper {
       return GameResult.WIN;
     }
 
+    if (gameResult.equals(GameResultDto.PLAYER_2_WON) && playerNumer == 2) {
+      return GameResult.WIN;
+    }
+
     return GameResult.LOSE;
   }
 }

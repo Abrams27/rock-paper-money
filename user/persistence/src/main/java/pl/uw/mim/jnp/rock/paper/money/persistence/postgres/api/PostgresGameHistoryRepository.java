@@ -16,9 +16,6 @@ public class PostgresGameHistoryRepository {
   private final UserInfoRepository userInfoRepository;
 
   public GameHistoryEntity postGameHistoryForUser(String username, String opponentsUsername, GameResult gameResult, Integer stake) {
-//    GameHistoryEntity gameHistoryEntity = createGameHistoryEntity(opponentsUsername, gameResult, stake);
-//    GameHistoryEntity savedGameHistoryEntity = gameHistoryRepository.save(gameHistoryEntity);
-
     return userInfoRepository.findByUsername(username)
         .map(userInfoEntity -> createGameHistoryEntity(userInfoEntity, opponentsUsername, gameResult, stake))
         .map(gameHistoryRepository::save)
@@ -34,12 +31,4 @@ public class PostgresGameHistoryRepository {
         .build();
   }
 
-  private UserInfoEntity addGameHistory(UserInfoEntity userInfoEntity, GameHistoryEntity gameHistoryEntity) {
-    System.out.println("->>>>>>" + userInfoEntity);
-    System.out.println("->>>>>>" + gameHistoryEntity);
-    System.out.println("?-> " + gameHistoryRepository.findAll());
-    userInfoEntity.addGameHistory(gameHistoryEntity);
-
-    return userInfoEntity;
-  }
 }
