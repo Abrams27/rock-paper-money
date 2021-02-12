@@ -7,33 +7,33 @@ networks:
     driver: bridge
 
 services:
-#  zookeeper:
-#    image: 'confluentinc/cp-zookeeper:latest'
-#    networks:
-#      - frontend
-#      - backend
-#    environment:
-#      ZOOKEEPER_CLIENT_PORT: 2181
-#      ZOOKEEPER_TICK_TIME: 2000
-#
-#  kafka:
-#    image: 'confluentinc/cp-kafka:latest'
-#    networks:
-#      - backend
-#    environment:
-#      KAFKA_BROKER_ID: 1
-#      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-#      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://kafka:9092
-#      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
-#      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-#      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
-#    depends_on:
-#      - zookeeper
-#
-#  redis:
-#    image: 'redis:latest'
-#    networks:
-#      - backend
+  zookeeper:
+    image: 'confluentinc/cp-zookeeper:latest'
+    networks:
+      - frontend
+      - backend
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka:
+    image: 'confluentinc/cp-kafka:latest'
+    networks:
+      - backend
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://kafka:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    depends_on:
+      - zookeeper
+
+  redis:
+    image: 'redis:latest'
+    networks:
+      - backend
 
   postgres:
     image: 'postgres'
@@ -44,37 +44,37 @@ services:
     networks:
       - backend
 
-#  game:
-#    image: jnp-rock-paper-money/game
-#    networks:
-#      - backend
-#    build:
-#      context: ./game
-#    depends_on:
-#      - kafka
-#      - redis
-##    for testing
-#    ports:
-#      - 8081:8080
+  game:
+    image: jnp-rock-paper-money/game
+    networks:
+      - backend
+    build:
+      context: ./game
+    depends_on:
+      - kafka
+      - redis
+#    for testing
+    ports:
+      - 8081:8080
 
-#  gateway:
-#    image: jnp-rock-paper-money/gateway
-#    networks:
-#        - backend
-#        - frontend
-#    build:
-#      context: ./gateway
-#    depends_on:
-#      - kafka
-#
-#  matchmaking:
-#    image: jnp-rock-paper-money/matchmaking
-#    networks:
-#        - backend
-#    build:
-#      context: ./matchmaking
-#    depends_on:
-#      - kafka
+  gateway:
+    image: jnp-rock-paper-money/gateway
+    networks:
+        - backend
+        - frontend
+    build:
+      context: ./gateway
+    depends_on:
+      - kafka
+
+  matchmaking:
+    image: jnp-rock-paper-money/matchmaking
+    networks:
+        - backend
+    build:
+      context: ./matchmaking
+    depends_on:
+      - kafka
 
   user-redis:
     image: 'redis:latest'
@@ -88,7 +88,6 @@ services:
     build:
       context: ./user
     depends_on:
-#      - kafka
       - postgres
       - user-redis
 #    for testing
