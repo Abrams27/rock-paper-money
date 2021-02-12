@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  pl.uw.mim.jnp.rock.paper.money.persistence.postgres.config.PostgresConfig,\
+  pl.uw.mim.jnp.rock.paper.money.persistence.redis.config.RedisConfig

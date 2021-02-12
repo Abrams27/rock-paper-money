@@ -35,6 +35,15 @@ services:
     networks:
       - backend
 
+  postgres:
+    image: 'postgres'
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    networks:
+      - backend
+
   game:
     image: jnp-rock-paper-money/game
     networks:
@@ -46,7 +55,7 @@ services:
       - redis
 #    for testing
     ports:
-      - 8080:8080
+      - 8081:8080
 
   gateway:
     image: jnp-rock-paper-money/gateway
@@ -67,6 +76,11 @@ services:
     depends_on:
       - kafka
 
+  user-redis:
+    image: 'redis:latest'
+    networks:
+      - backend
+
   user:
     image: jnp-rock-paper-money/user
     networks:
@@ -74,4 +88,8 @@ services:
     build:
       context: ./user
     depends_on:
-      - kafka
+      - postgres
+      - user-redis
+#    for testing
+    ports:
+      - 8082:8080
