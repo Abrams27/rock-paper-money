@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.uw.mim.jnp.rock.paper.money.api.models.user.UserInfoDto;
 import pl.uw.mim.jnp.rock.paper.money.app.config.UserProperties;
 import pl.uw.mim.jnp.rock.paper.money.app.mappers.dto.UserInfoDtoMapper;
+import pl.uw.mim.jnp.rock.paper.money.app.services.utils.BCryptUtils;
 import pl.uw.mim.jnp.rock.paper.money.persistence.postgres.api.PostgresUserInfoRepository;
 import reactor.core.publisher.Mono;
 
@@ -17,8 +18,9 @@ public class UserInfoService {
 
   public Mono<Void> addUser(String username, String password) {
     Integer startingBalance = userProperties.getBalance();
+    String encodedPassword = BCryptUtils.encodePassword(password);
 
-    return Mono.just(postgresUserInfoRepository.addUser(username, password, startingBalance))
+    return Mono.just(postgresUserInfoRepository.addUser(username, encodedPassword, startingBalance))
         .then();
   }
 
