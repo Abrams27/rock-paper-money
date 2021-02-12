@@ -16,15 +16,15 @@ public class RedisLoggedUserRepository {
     loggedUserRepository.save(getLoggedUserEntryForUsername(username));
   }
 
-  public Optional<String> findUsername(String username) {
-    return loggedUserRepository.findById(username)
-        .map(LoggedUserEntry::getId);
-  }
-
   private LoggedUserEntry getLoggedUserEntryForUsername(String username) {
     return LoggedUserEntry.builder()
         .id(username)
         .build();
+  }
+
+  public Optional<String> findUsername(String username) {
+    return loggedUserRepository.findById(username)
+        .map(LoggedUserEntry::getId);
   }
 
   public void removeUsername(String username) {

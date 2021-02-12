@@ -1,4 +1,4 @@
-package pl.uw.mim.jnp.rock.paper.money.app.services.utils;
+package pl.uw.mim.jnp.rock.paper.money.app.utils;
 
 import lombok.experimental.UtilityClass;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

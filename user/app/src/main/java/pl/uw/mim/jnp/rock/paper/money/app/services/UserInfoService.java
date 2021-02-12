@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import pl.uw.mim.jnp.rock.paper.money.api.models.user.UserInfoDto;
 import pl.uw.mim.jnp.rock.paper.money.app.config.UserProperties;
 import pl.uw.mim.jnp.rock.paper.money.app.mappers.dto.UserInfoDtoMapper;
-import pl.uw.mim.jnp.rock.paper.money.app.services.utils.BCryptUtils;
+import pl.uw.mim.jnp.rock.paper.money.app.utils.BCryptUtils;
 import pl.uw.mim.jnp.rock.paper.money.persistence.postgres.api.PostgresUserInfoRepository;
 import reactor.core.publisher.Mono;
 
