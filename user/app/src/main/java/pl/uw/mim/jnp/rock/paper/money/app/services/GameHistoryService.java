@@ -2,7 +2,7 @@ package pl.uw.mim.jnp.rock.paper.money.app.services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.uw.mim.jnp.rock.paper.money.api.models.history.GameHistoryDto;
+import pl.uw.mim.jnp.rock.paper.money.api.models.user.history.GameHistoryDto;
 import pl.uw.mim.jnp.rock.paper.money.app.mappers.entity.GameResultMapper;
 import pl.uw.mim.jnp.rock.paper.money.persistence.postgres.api.PostgresGameHistoryRepository;
 import pl.uw.mim.jnp.rock.paper.money.persistence.postgres.entries.history.GameHistoryEntity;

@@ -1,4 +1,4 @@
-package pl.uw.mim.jnp.rock.paper.money.api.models.history;
+package pl.uw.mim.jnp.rock.paper.money.api.models.user.history;
 
 public enum GameResultDto {
   PLAYER_1_WON,
