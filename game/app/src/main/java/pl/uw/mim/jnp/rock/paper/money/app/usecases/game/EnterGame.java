@@ -26,7 +26,7 @@ public class EnterGame {
   private void enterGameOrThrow(GameEntranceDto gameEntrance) {
     boolean gameEntranceResult =
         gameService.enterGame(
-            gameEntrance.getGameId(), gameEntrance.getPlayerId(), gameEntrance.getHandSign());
+            gameEntrance.getGameId(), gameEntrance.getPlayerUsername(), gameEntrance.getHandSign());
 
     if (!gameEntranceResult) {
       throw new InvalidGameException();
@@ -36,19 +36,17 @@ public class EnterGame {
   private Mono<Void> checkGameStatusAndCheckIfGameEnded(GameEntranceDto gameEntrance) {
     Long gameId = gameEntrance.getGameId();
 
-    Long player1Id = gameService.getPlayer1Id(gameId);
-    Long player2Id = gameService.getPlayer2Id(gameId);
+    String player1Username = gameService.getPlayer1Username(gameId);
+    String player2Username = gameService.getPlayer2Username(gameId);
     GameStatus gameStatus = gameService.getGameStatus(gameId);
     Integer stake = gameService.getStake(gameId);
 
-    PlayersNotification playersNotification = createPlayersNotification(gameId, player1Id, player2Id, gameStatus, stake);
+    PlayersNotification playersNotification = createPlayersNotification(gameId, player1Username, player2Username, gameStatus, stake);
 
-    return Mono.just(playersNotification)
-        .filter(notification -> !notification.getGameStatus().equals(GameStatus.IN_PROGRESS))
-        .flatMap(notificationService::notifyPlayersAboutResult);
+    return notifyPlayersAndUpdateGameHistories(playersNotification);
   }
 
-  private PlayersNotification createPlayersNotification(Long gameId, Long player1, Long player2, GameStatus gameStatus, Integer stake) {
+  private PlayersNotification createPlayersNotification(Long gameId, String player1, String player2, GameStatus gameStatus, Integer stake) {
     return PlayersNotification.builder()
         .gameId(gameId)
         .player1(player1)
@@ -56,5 +54,18 @@ public class EnterGame {
         .gameStatus(gameStatus)
         .stake(stake)
         .build();
+  }
+
+  private Mono<Void> notifyPlayersAndUpdateGameHistories(PlayersNotification playersNotification) {
+    Mono<Void> kafkaNotification = Mono.just(playersNotification)
+        .filter(notification -> !notification.getGameStatus().equals(GameStatus.IN_PROGRESS))
+        .flatMap(notificationService::notifyPlayersAboutResult);
+
+    Mono<Void> userServiceCall = Mono.just(playersNotification)
+        .filter(notification -> !notification.getGameStatus().equals(GameStatus.IN_PROGRESS))
+        .flatMap(notificationService::updatePlayersGameHistories);
+
+    return Mono.zip(kafkaNotification, userServiceCall)
+        .then();
   }
 }

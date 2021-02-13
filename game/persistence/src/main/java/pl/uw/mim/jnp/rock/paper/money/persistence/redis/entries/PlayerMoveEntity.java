@@ -8,7 +8,7 @@ import lombok.Data;
 @Builder
 public class PlayerMoveEntity implements Serializable {
 
-  private Long playerId;
+  private String playerUsername;
 
   private HandSign handSign;
 }

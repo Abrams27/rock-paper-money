@@ -7,8 +7,8 @@ public class GameRegistrationDto {
 
   private Long gameId;
 
-  private Long player1Id;
-  private Long player2Id;
+  private String player1Username;
+  private String player2Username;
 
   private Integer stake;
 }

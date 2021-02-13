@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import pl.uw.mim.jnp.rock.paper.money.api.models.HandSign;
 import pl.uw.mim.jnp.rock.paper.money.app.services.models.GameStatus;
 import pl.uw.mim.jnp.rock.paper.money.persistence.redis.api.RedisGameRepository;
-import reactor.core.publisher.Mono;
 
 @Service
 @AllArgsConstructor
@@ -14,28 +13,28 @@ public class GameService {
 
   private final RedisGameRepository redisGameRepository;
 
-  public boolean registerGame(Long gameId, Long player1Id, Long player2Id, Integer stake) {
-    return redisGameRepository.saveGameEntrance(gameId, player1Id, player2Id, stake);
+  public boolean registerGame(Long gameId, String player1Username, String player2Username, Integer stake) {
+    return redisGameRepository.saveGameEntrance(gameId, player1Username, player2Username, stake);
   }
 
-  public boolean enterGame(Long gameId, Long playerId, HandSign handSign) {
+  public boolean enterGame(Long gameId, String playerUsername, HandSign handSign) {
     boolean player1EntranceResult =
-        redisGameRepository.setPlayerMoveIfItIsCorrectPlayer(gameId, playerId, handSign.toString(), 1);
+        redisGameRepository.setPlayerMoveIfItIsCorrectPlayer(gameId, playerUsername, handSign.toString(), 1);
     boolean player2EntranceResult =
-        redisGameRepository.setPlayerMoveIfItIsCorrectPlayer(gameId, playerId, handSign.toString(), 2);
+        redisGameRepository.setPlayerMoveIfItIsCorrectPlayer(gameId, playerUsername, handSign.toString(), 2);
 
     return player1EntranceResult || player2EntranceResult;
   }
 
-  public Long getPlayer1Id(Long gameId) {
+  public String getPlayer1Username(Long gameId) {
     return redisGameRepository
-        .getPlayerId(gameId, 1)
+        .getPlayerUsername(gameId, 1)
         .orElseThrow();
   }
 
-  public Long getPlayer2Id(Long gameId) {
+  public String getPlayer2Username(Long gameId) {
     return redisGameRepository
-        .getPlayerId(gameId, 2)
+        .getPlayerUsername(gameId, 2)
         .orElseThrow();
   }
 

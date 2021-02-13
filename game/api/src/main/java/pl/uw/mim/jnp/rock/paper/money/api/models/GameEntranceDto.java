@@ -7,7 +7,7 @@ public class GameEntranceDto {
 
   private Long gameId;
 
-  private Long playerId;
+  private String playerUsername;
 
   private HandSign handSign;
 }

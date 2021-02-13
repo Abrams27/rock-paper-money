@@ -6,9 +6,9 @@ import pl.uw.mim.jnp.rock.paper.money.persistence.redis.entries.PlayerMoveEntity
 @UtilityClass
 public class PlayerMoveEntityCreator {
 
-  public PlayerMoveEntity from(Long playerId) {
+  public PlayerMoveEntity from(String username) {
     return PlayerMoveEntity.builder()
-        .playerId(playerId)
+        .playerUsername(username)
         .handSign(null)
         .build();
   }

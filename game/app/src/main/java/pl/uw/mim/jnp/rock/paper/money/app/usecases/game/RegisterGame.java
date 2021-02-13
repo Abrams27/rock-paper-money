@@ -19,8 +19,8 @@ public class RegisterGame {
             registration ->
                 gameService.registerGame(
                     registration.getGameId(),
-                    registration.getPlayer1Id(),
-                    registration.getPlayer2Id(),
+                    registration.getPlayer1Username(),
+                    registration.getPlayer2Username(),
                     registration.getStake()))
         .filter(o -> o)
         .switchIfEmpty(Mono.error(new InvalidRegistrationException()))
