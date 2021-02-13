@@ -2,9 +2,9 @@ package pl.uw.mim.jnp.rock.paper.money.app.controllers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
-import pl.uw.mim.jnp.rock.paper.money.endpoints.AuthApi;
-import pl.uw.mim.jnp.rock.paper.money.models.auth.UserLoginRequestDto;
-import pl.uw.mim.jnp.rock.paper.money.models.auth.UserLoginResponseDto;
+import pl.uw.mim.jnp.rock.paper.money.api.endpoints.AuthApi;
+import pl.uw.mim.jnp.rock.paper.money.api.models.auth.UserLoginRequestDto;
+import pl.uw.mim.jnp.rock.paper.money.api.models.auth.UserLoginResponseDto;
 import pl.uw.mim.jnp.rock.paper.money.app.usecases.auth.Authenticate;
 import pl.uw.mim.jnp.rock.paper.money.app.usecases.auth.Login;
 import pl.uw.mim.jnp.rock.paper.money.app.usecases.auth.Logout;

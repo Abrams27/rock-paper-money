@@ -3,7 +3,7 @@ package pl.uw.mim.jnp.rock.paper.money.app.services;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.uw.mim.jnp.rock.paper.money.models.HandSign;
+import pl.uw.mim.jnp.rock.paper.money.api.models.HandSign;
 import pl.uw.mim.jnp.rock.paper.money.app.services.models.GameStatus;
 import pl.uw.mim.jnp.rock.paper.money.persistence.redis.api.RedisGameRepository;
 

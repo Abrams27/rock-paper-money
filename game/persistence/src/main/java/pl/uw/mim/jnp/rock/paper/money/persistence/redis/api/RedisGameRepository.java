@@ -1,5 +1,6 @@
 package pl.uw.mim.jnp.rock.paper.money.persistence.redis.api;
 
+import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -54,6 +55,7 @@ public class RedisGameRepository {
     HandSign handSignEnum = HandSign.valueOf(handSign);
 
     playerMoveEntity.setHandSign(handSignEnum);
+    gameEntity.setHasStarted(true);
     gameEntity.setPlayerMove(playerMoveEntity, playerNumber);
 
     gameRepository.save(gameEntity);
@@ -88,5 +90,21 @@ public class RedisGameRepository {
   public Optional<Integer> getStake(Long gameId) {
     return gameRepository.findById(gameId)
         .map(GameEntity::getStake);
+  }
+
+  public Optional<GameEntity> getNotStartedGameForUsername(String username) {
+    return gameRepository.findAll().stream()
+        .peek(System.out::println)
+        .filter(entity -> !entity.getHasStarted())
+        .peek(System.out::println)
+        .filter(entity ->
+            compareUsernames(entity.getPlayer1Move(), username) ||
+                compareUsernames(entity.getPlayer2Move(), username))
+        .peek(System.out::println)
+        .findFirst();
+  }
+
+  private boolean compareUsernames(PlayerMoveEntity playerMoveEntity, String username) {
+    return playerMoveEntity.getPlayerUsername().equals(username);
   }
 }

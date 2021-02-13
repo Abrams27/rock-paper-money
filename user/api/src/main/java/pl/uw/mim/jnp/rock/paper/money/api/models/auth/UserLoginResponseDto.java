@@ -1,4 +1,4 @@
-package pl.uw.mim.jnp.rock.paper.money.models.auth;
+package pl.uw.mim.jnp.rock.paper.money.api.models.auth;
 
 import lombok.Builder;
 import lombok.Data;

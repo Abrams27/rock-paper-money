@@ -2,10 +2,14 @@ package pl.uw.mim.jnp.rock.paper.money.app.controlers;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
-import pl.uw.mim.jnp.rock.paper.money.endpoints.GameApi;
-import pl.uw.mim.jnp.rock.paper.money.models.GameEntranceDto;
-import pl.uw.mim.jnp.rock.paper.money.models.GameRegistrationDto;
+import pl.uw.mim.jnp.rock.paper.money.api.endpoints.GameApi;
+import pl.uw.mim.jnp.rock.paper.money.api.models.GameEntranceDto;
+import pl.uw.mim.jnp.rock.paper.money.api.models.GameInfoResponse;
+import pl.uw.mim.jnp.rock.paper.money.api.models.GameRegistrationDto;
+import pl.uw.mim.jnp.rock.paper.money.api.models.UserGameResponseDto;
 import pl.uw.mim.jnp.rock.paper.money.app.usecases.game.EnterGame;
+import pl.uw.mim.jnp.rock.paper.money.app.usecases.game.GameInfo;
+import pl.uw.mim.jnp.rock.paper.money.app.usecases.game.NewGame;
 import pl.uw.mim.jnp.rock.paper.money.app.usecases.game.RegisterGame;
 import reactor.core.publisher.Mono;
 
@@ -15,6 +19,8 @@ public class GameController implements GameApi {
 
   private final RegisterGame registerGame;
   private final EnterGame enterGame;
+  private final NewGame newGame;
+  private final GameInfo gameInfo;
 
   @Override
   public Mono<Void> registerGame(GameRegistrationDto gameRegistration) {
@@ -24,5 +30,15 @@ public class GameController implements GameApi {
   @Override
   public Mono<Void> enterGame(GameEntranceDto gameEntrance) {
     return enterGame.execute(gameEntrance);
+  }
+
+  @Override
+  public Mono<UserGameResponseDto> newGame(String username) {
+    return newGame.execute(username);
+  }
+
+  @Override
+  public Mono<GameInfoResponse> gameInfo(Long gameId) {
+    return gameInfo.execute(gameId);
   }
 }

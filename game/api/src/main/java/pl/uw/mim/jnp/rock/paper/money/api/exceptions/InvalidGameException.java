@@ -1,4 +1,4 @@
-package pl.uw.mim.jnp.rock.paper.money.exceptions;
+package pl.uw.mim.jnp.rock.paper.money.api.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

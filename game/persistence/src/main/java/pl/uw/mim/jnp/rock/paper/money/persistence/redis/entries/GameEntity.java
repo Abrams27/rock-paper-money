@@ -17,6 +17,8 @@ public class GameEntity implements Serializable {
 
   private Integer stake;
 
+  private Boolean hasStarted;
+
   public PlayerMoveEntity getPlayerMove(int playerNumber) {
     if (playerNumber == 1) {
       return player1Move;
