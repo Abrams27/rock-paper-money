@@ -93,3 +93,20 @@ services:
 #    for testing
     ports:
       - 8082:8080
+
+  kafka-proxy:
+    image: jnp-rock-paper-money/kafka-proxy
+    networks:
+      - backend
+    build:
+      context: ./kafka-proxy
+    depends_on:
+      - kafka
+    expose:
+      - 8080
+
+  kafka-proxy-test:
+    tty: true
+    image: debian
+    networks:
+      - backend

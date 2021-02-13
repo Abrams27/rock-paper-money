@@ -15,32 +15,32 @@ public class RedisGameRepository {
 
   private final GameRepository gameRepository;
 
-  public boolean saveGameEntrance(Long gameId, Long player1Id, Long player2Id, Integer stake) {
+  public boolean saveGameEntrance(Long gameId, String player1Username, String player2Username, Integer stake) {
     boolean isGameAlreadyRegistered =  gameRepository.findById(gameId).isPresent();
 
     if (isGameAlreadyRegistered) {
       return false;
     }
 
-    GameEntity gameEntity = GameEntityCreator.from(gameId, player1Id, player2Id, stake);
+    GameEntity gameEntity = GameEntityCreator.from(gameId, player1Username, player2Username, stake);
     gameRepository.save(gameEntity);
 
     return true;
   }
 
   public boolean setPlayerMoveIfItIsCorrectPlayer(
-      Long gameId, Long playerId, String handSign, int playerNumber) {
+      Long gameId, String playerUsername, String handSign, int playerNumber) {
     return gameRepository
         .findById(gameId)
-        .map(entity -> validateAndUpdatePlayerMoveAndSave(entity, playerId, handSign, playerNumber))
+        .map(entity -> validateAndUpdatePlayerMoveAndSave(entity, playerUsername, handSign, playerNumber))
         .orElse(false);
   }
 
   private boolean validateAndUpdatePlayerMoveAndSave(
-      GameEntity gameEntity, Long playerId, String handSign, int playerNumber) {
+      GameEntity gameEntity, String playerUsername, String handSign, int playerNumber) {
     PlayerMoveEntity playerMoveEntity = gameEntity.getPlayerMove(playerNumber);
 
-    if (!isPlayerCorrect(playerMoveEntity, playerId)) {
+    if (!isPlayerCorrect(playerMoveEntity, playerUsername)) {
       return false;
     }
 
@@ -59,8 +59,8 @@ public class RedisGameRepository {
     gameRepository.save(gameEntity);
   }
 
-  private boolean isPlayerCorrect(PlayerMoveEntity playerMoveEntity, Long playerId) {
-    return comparePlayerMoveEntity(playerMoveEntity, playerId)
+  private boolean isPlayerCorrect(PlayerMoveEntity playerMoveEntity, String playerUsername) {
+    return comparePlayerMoveEntity(playerMoveEntity, playerUsername)
         && isNotHandSignAlreadySet(playerMoveEntity);
   }
 
@@ -68,8 +68,8 @@ public class RedisGameRepository {
     return playerMoveEntity.getHandSign() == null;
   }
 
-  private boolean comparePlayerMoveEntity(PlayerMoveEntity playerMoveEntity, Long playerId) {
-    return playerMoveEntity.getPlayerId().equals(playerId);
+  private boolean comparePlayerMoveEntity(PlayerMoveEntity playerMoveEntity, String playerUsername) {
+    return playerMoveEntity.getPlayerUsername().equals(playerUsername);
   }
 
   public Optional<String> getPlayerHandSign(Long gameId, int playerNumber) {
@@ -79,10 +79,10 @@ public class RedisGameRepository {
         .map(Enum::toString);
   }
 
-  public Optional<Long> getPlayerId(Long gameId, int playerNumber) {
+  public Optional<String> getPlayerUsername(Long gameId, int playerNumber) {
     return gameRepository.findById(gameId)
         .map(gameEntity -> gameEntity.getPlayerMove(playerNumber))
-        .map(PlayerMoveEntity::getPlayerId);
+        .map(PlayerMoveEntity::getPlayerUsername);
   }
 
   public Optional<Integer> getStake(Long gameId) {

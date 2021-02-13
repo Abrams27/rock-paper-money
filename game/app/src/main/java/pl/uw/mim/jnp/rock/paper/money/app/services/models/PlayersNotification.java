@@ -8,8 +8,8 @@ import lombok.Data;
 public class PlayersNotification {
 
   private Long gameId;
-  private Long player1;
-  private Long player2;
+  private String player1;
+  private String player2;
   private GameStatus gameStatus;
   private Integer stake;
 }

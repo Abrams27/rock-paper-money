@@ -2,8 +2,8 @@ package pl.uw.mim.jnp.rock.paper.money.app.usecases.game;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import pl.uw.mim.jnp.rock.paper.money.api.exceptions.InvalidRegistrationException;
-import pl.uw.mim.jnp.rock.paper.money.api.models.GameRegistrationDto;
+import pl.uw.mim.jnp.rock.paper.money.exceptions.InvalidRegistrationException;
+import pl.uw.mim.jnp.rock.paper.money.models.GameRegistrationDto;
 import pl.uw.mim.jnp.rock.paper.money.app.services.GameService;
 import reactor.core.publisher.Mono;
 
@@ -19,8 +19,8 @@ public class RegisterGame {
             registration ->
                 gameService.registerGame(
                     registration.getGameId(),
-                    registration.getPlayer1Id(),
-                    registration.getPlayer2Id(),
+                    registration.getPlayer1Username(),
+                    registration.getPlayer2Username(),
                     registration.getStake()))
         .filter(o -> o)
         .switchIfEmpty(Mono.error(new InvalidRegistrationException()))

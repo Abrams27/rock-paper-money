@@ -9,8 +9,8 @@ public class GameResultNotification {
 
   private Long gameId;
 
-  private Long player1;
-  private Long player2;
+  private String player1;
+  private String player2;
 
   private Integer stake;
   private GameResult gameResult;

@@ -7,9 +7,9 @@ import pl.uw.mim.jnp.rock.paper.money.persistence.redis.entries.PlayerMoveEntity
 @UtilityClass
 public class GameEntityCreator {
 
-  public GameEntity from(Long gameId, Long player1Id, Long player2Id, Integer stake) {
-    PlayerMoveEntity player1MoveEntity = PlayerMoveEntityCreator.from(player1Id);
-    PlayerMoveEntity player2MoveEntity = PlayerMoveEntityCreator.from(player2Id);
+  public GameEntity from(Long gameId, String player1Username, String player2Username, Integer stake) {
+    PlayerMoveEntity player1MoveEntity = PlayerMoveEntityCreator.from(player1Username);
+    PlayerMoveEntity player2MoveEntity = PlayerMoveEntityCreator.from(player2Username);
 
     return GameEntity.builder()
         .id(gameId)

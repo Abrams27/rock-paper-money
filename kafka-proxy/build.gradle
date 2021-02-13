@@ -1,0 +1,28 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'pl.uw.mim.jnp.rock.paper.money'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://maven.restlet.com"
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter:2.3.1.RELEASE'
+    implementation 'org.apache.camel:camel-spring-boot-starter:3.0.0-RC1'
+    implementation 'org.apache.camel:camel-kafka:3.0.0-RC1'
+    implementation 'org.apache.camel:camel-restlet:3.0.0-RC1'
+
+    compileOnly 'org.projectlombok:lombok:1.18.12'
+
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+}
+
