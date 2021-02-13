@@ -107,4 +107,8 @@ public class RedisGameRepository {
   private boolean compareUsernames(PlayerMoveEntity playerMoveEntity, String username) {
     return playerMoveEntity.getPlayerUsername().equals(username);
   }
+
+  public Optional<GameEntity> getGameWithId(Long gameId) {
+    return gameRepository.findById(gameId);
+  }
 }

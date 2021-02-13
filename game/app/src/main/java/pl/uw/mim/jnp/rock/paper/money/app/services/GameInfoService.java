@@ -3,9 +3,12 @@ package pl.uw.mim.jnp.rock.paper.money.app.services;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.uw.mim.jnp.rock.paper.money.api.models.GameProgress;
 import pl.uw.mim.jnp.rock.paper.money.api.models.UserGameResponseDto;
 import pl.uw.mim.jnp.rock.paper.money.app.mappers.dto.UserGameResponseDtoMapper;
 import pl.uw.mim.jnp.rock.paper.money.persistence.redis.api.RedisGameRepository;
+import pl.uw.mim.jnp.rock.paper.money.persistence.redis.entries.GameEntity;
+import pl.uw.mim.jnp.rock.paper.money.persistence.redis.entries.PlayerMoveEntity;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -20,5 +23,25 @@ public class GameInfoService {
         .filter(Optional::isPresent)
         .map(Optional::get)
         .map(entity -> UserGameResponseDtoMapper.map(entity, username));
+  }
+
+  public Mono<GameProgress> getGameProgress(Long gameId) {
+    return Mono.just(gameId)
+        .map(redisGameRepository::getGameWithId)
+        .filter(Optional::isPresent)
+        .map(Optional::get)
+        .map(this::mapGameProgress);
+  }
+
+  private GameProgress mapGameProgress(GameEntity gameEntity) {
+    if (hasPlayerMoved(gameEntity.getPlayer1Move()) && hasPlayerMoved(gameEntity.getPlayer2Move())) {
+      return GameProgress.ENDED;
+    }
+
+    return GameProgress.IN_PROGRESS;
+  }
+
+  private Boolean hasPlayerMoved(PlayerMoveEntity playerMoveEntity) {
+    return playerMoveEntity.getHandSign() != null;
   }
 }

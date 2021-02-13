@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 import pl.uw.mim.jnp.rock.paper.money.api.endpoints.GameApi;
 import pl.uw.mim.jnp.rock.paper.money.api.models.GameEntranceDto;
-import pl.uw.mim.jnp.rock.paper.money.api.models.GameInfoResponse;
+import pl.uw.mim.jnp.rock.paper.money.api.models.GameProgress;
 import pl.uw.mim.jnp.rock.paper.money.api.models.GameRegistrationDto;
 import pl.uw.mim.jnp.rock.paper.money.api.models.UserGameResponseDto;
 import pl.uw.mim.jnp.rock.paper.money.app.usecases.game.EnterGame;
@@ -38,7 +38,7 @@ public class GameController implements GameApi {
   }
 
   @Override
-  public Mono<GameInfoResponse> gameInfo(Long gameId) {
+  public Mono<GameProgress> gameInfo(Long gameId) {
     return gameInfo.execute(gameId);
   }
 }
