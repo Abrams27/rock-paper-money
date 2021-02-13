@@ -1,7 +1,7 @@
 package pl.uw.mim.jnp.rock.paper.money.app.mappers.dto;
 
 import lombok.experimental.UtilityClass;
-import pl.uw.mim.jnp.rock.paper.money.api.models.user.UserInfoDto;
+import pl.uw.mim.jnp.rock.paper.money.models.user.UserInfoDto;
 import pl.uw.mim.jnp.rock.paper.money.persistence.postgres.entries.user.UserInfoEntity;
 
 @UtilityClass

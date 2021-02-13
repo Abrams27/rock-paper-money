@@ -57,24 +57,24 @@ services:
     ports:
       - 8081:8080
 
-#  gateway:
-#    image: jnp-rock-paper-money/gateway
-#    networks:
-#        - backend
-#        - frontend
-#    build:
-#      context: ./gateway
-#    depends_on:
-#      - kafka
+  gateway:
+    image: jnp-rock-paper-money/gateway
+    networks:
+        - backend
+        - frontend
+    build:
+      context: ./gateway
+    depends_on:
+      - kafka
 
-#  matchmaking:
-#    image: jnp-rock-paper-money/matchmaking
-#    networks:
-#        - backend
-#    build:
-#      context: ./matchmaking
-#    depends_on:
-#      - kafka
+  matchmaking:
+    image: jnp-rock-paper-money/matchmaking
+    networks:
+        - backend
+    build:
+      context: ./matchmaking
+    depends_on:
+      - kafka
 
   user-redis:
     image: 'redis:latest'
@@ -93,3 +93,20 @@ services:
 #    for testing
     ports:
       - 8082:8080
+
+  kafka-proxy:
+    image: jnp-rock-paper-money/kafka-proxy
+    networks:
+      - backend
+    build:
+      context: ./kafka-proxy
+    depends_on:
+      - kafka
+    expose:
+      - 8080
+
+  kafka-proxy-test:
+    tty: true
+    image: debian
+    networks:
+      - backend

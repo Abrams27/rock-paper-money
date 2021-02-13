@@ -2,8 +2,8 @@ package pl.uw.mim.jnp.rock.paper.money.app.usecases.game;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
-import pl.uw.mim.jnp.rock.paper.money.api.exceptions.InvalidGameException;
-import pl.uw.mim.jnp.rock.paper.money.api.models.GameEntranceDto;
+import pl.uw.mim.jnp.rock.paper.money.exceptions.InvalidGameException;
+import pl.uw.mim.jnp.rock.paper.money.models.GameEntranceDto;
 import pl.uw.mim.jnp.rock.paper.money.app.services.GameService;
 import pl.uw.mim.jnp.rock.paper.money.app.services.NotificationService;
 import pl.uw.mim.jnp.rock.paper.money.app.services.models.GameStatus;
