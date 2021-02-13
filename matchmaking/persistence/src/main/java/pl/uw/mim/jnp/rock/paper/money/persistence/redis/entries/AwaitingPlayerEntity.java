@@ -10,7 +10,7 @@ import org.springframework.data.redis.core.RedisHash;
 public class AwaitingPlayerEntity {
   private Long id;
 
-  private Long playerId;
+  private String playerUsername;
 
   private Integer stake;
 }

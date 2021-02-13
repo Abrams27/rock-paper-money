@@ -5,9 +5,9 @@ import pl.uw.mim.jnp.rock.paper.money.persistence.redis.entries.AwaitingPlayerEn
 
 @UtilityClass
 public class AwaitingPlayerEntityCreator {
-  public AwaitingPlayerEntity from(Long playerId, Integer stake){
+  public AwaitingPlayerEntity from(String playerUsername, Integer stake){
     return AwaitingPlayerEntity.builder()
-        .playerId(playerId)
+        .playerUsername(playerUsername)
         .stake(stake)
         .build();
   }

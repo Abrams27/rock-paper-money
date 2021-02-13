@@ -1,6 +1,5 @@
 package pl.uw.mim.jnp.rock.paper.money.persistence.redis.api;
 
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import pl.uw.mim.jnp.rock.paper.money.persistence.redis.entries.AwaitingPlayerEntity;
@@ -13,13 +12,18 @@ public class RedisAwaitingPlayerRepository {
 
   private final AwaitingPlayerRepository awaitingPlayerRepository;
 
-  public void saveAwaitingPlayer(Long playerId, Integer stake){
-    AwaitingPlayerEntity awaitingPlayerEntity = AwaitingPlayerEntityCreator.from(playerId, stake);
+  public void saveAwaitingPlayer(String playerUsername, Integer stake){
+    AwaitingPlayerEntity awaitingPlayerEntity = AwaitingPlayerEntityCreator.from(playerUsername, stake);
     awaitingPlayerRepository.save(awaitingPlayerEntity);
   }
 
-  public Optional<Long> getAwaitingPlayerId(Integer stake){
-    return awaitingPlayerRepository.findByStake(stake)
-        .map(AwaitingPlayerEntity::getPlayerId);
+  public String getAwaitingPlayerUsername(Integer stake){
+    var awaitingPlayer = awaitingPlayerRepository.findByStake(stake).orElseThrow();
+    awaitingPlayerRepository.deleteById(awaitingPlayer.getId());
+    return awaitingPlayer.getPlayerUsername();
+  }
+
+  public boolean isPlayerAwaitingOnStake(Integer stake){
+    return awaitingPlayerRepository.findByStake(stake).isPresent();
   }
 }

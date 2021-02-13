@@ -7,7 +7,9 @@ repositories {
 }
 
 dependencies {
-    api project(':api')
+
+
+    api project(':app')
     api project(':persistence')
     api project(':connectors')
 
