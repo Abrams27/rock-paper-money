@@ -9,8 +9,8 @@ import lombok.Data;
 public class GameRegistrationDto {
   private Long gameId;
 
-  private Long player1;
-  private Long player2;
+  private String player1Username;
+  private String player2Username;
 
   private Integer stake;
 }

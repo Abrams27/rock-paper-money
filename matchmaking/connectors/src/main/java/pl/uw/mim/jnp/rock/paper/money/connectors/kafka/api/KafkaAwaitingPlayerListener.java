@@ -1,5 +1,6 @@
 package pl.uw.mim.jnp.rock.paper.money.connectors.kafka.api;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import pl.uw.mim.jnp.rock.paper.money.connectors.kafka.config.KafkaAwaitingPlayerTopicsProperties;
@@ -8,50 +9,42 @@ import pl.uw.mim.jnp.rock.paper.money.connectors.kafka.services.AwaitingPlayerSe
 @Component
 public class KafkaAwaitingPlayerListener {
 
+  @Autowired
   private KafkaAwaitingPlayerTopicsProperties kafkaAwaitingPlayerTopicsProperties;
+
+  @Autowired
   private AwaitingPlayerService awaitingPlayerService;
 
   @KafkaListener(topics = "awaiting.player.stake.1")
   void topic1Listener(String playerUsername) {
     System.out.println(playerUsername + "applied to play the game at stake ");
-    System.out.println(kafkaAwaitingPlayerTopicsProperties.getStakes().get("topic1"));
-
+//    System.out.println(kafkaAwaitingPlayerTopicsProperties.getStakes().get("topic1"));
+    awaitingPlayerService
+        .handleAwaitingPlayer(playerUsername, 1);
   }
 
   @KafkaListener(topics = "awaiting.player.stake.2")
   void topic2Listener(String playerUsername) {
-    System.out.println(
-        playerUsername + "applied to play the game at stake " + kafkaAwaitingPlayerTopicsProperties.getStakes()
-            .get("topic2"));
     awaitingPlayerService
-        .handleAwaitingPlayer(playerUsername, kafkaAwaitingPlayerTopicsProperties.getStakes().get("topic2"));
+        .handleAwaitingPlayer(playerUsername, 2);
   }
 
   @KafkaListener(topics = "awaiting.player.stake.5")
   void topic3Listener(String playerUsername) {
-    System.out.println(
-        playerUsername + "applied to play the game at stake " + kafkaAwaitingPlayerTopicsProperties.getStakes()
-            .get("topic3"));
     awaitingPlayerService
-        .handleAwaitingPlayer(playerUsername, kafkaAwaitingPlayerTopicsProperties.getStakes().get("topic3"));
+        .handleAwaitingPlayer(playerUsername, 5);
   }
 
   @KafkaListener(topics = "awaiting.player.stake.10")
   void topic4Listener(String playerUsername) {
-    System.out.println(
-        playerUsername + "applied to play the game at stake " + kafkaAwaitingPlayerTopicsProperties.getStakes()
-            .get("topic4"));
     awaitingPlayerService
-        .handleAwaitingPlayer(playerUsername, kafkaAwaitingPlayerTopicsProperties.getStakes().get("topic4"));
+        .handleAwaitingPlayer(playerUsername, 10);
   }
 
   @KafkaListener(topics = "awaiting.player.stake.20")
   void topic5Listener(String playerUsername) {
-    System.out.println(
-        playerUsername + "applied to play the game at stake " + kafkaAwaitingPlayerTopicsProperties.getStakes()
-            .get("topic5"));
     awaitingPlayerService
-        .handleAwaitingPlayer(playerUsername, kafkaAwaitingPlayerTopicsProperties.getStakes().get("topic5"));
+        .handleAwaitingPlayer(playerUsername, 20);
   }
 
 }
