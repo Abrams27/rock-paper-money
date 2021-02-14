@@ -45,6 +45,7 @@
 </template>
 <script>
 import User from "@/models/user";
+
 export default {
   name: "LoginView",
   data() {

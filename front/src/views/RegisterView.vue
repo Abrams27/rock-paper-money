@@ -44,7 +44,7 @@
   </v-container>
 </template>
 <script>
-import User from '../models/user.js'
+import User from "@/models/user";
 
 export default {
   name: "RegisterView",
