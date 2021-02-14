@@ -45,7 +45,7 @@ services:
       - backend
 
   game:
-    image: gcr.io/jnp-rock-paper-money/game
+    image: gcr.io/49359a486adb/game
     networks:
       - backend
     build:
@@ -58,7 +58,7 @@ services:
       - 8081:8080
 
   gateway:
-    image: gcr.io/jnp-rock-paper-money/gateway
+    image: gcr.io/49359a486adb/gateway
     networks:
         - backend
         - frontend
@@ -68,7 +68,7 @@ services:
       - kafka
 
   matchmaking:
-    image: gcr.io/jnp-rock-paper-money/matchmaking
+    image: gcr.io/49359a486adb/matchmaking
     networks:
         - backend
     build:
@@ -82,7 +82,7 @@ services:
       - backend
 
   user:
-    image: gcr.io/jnp-rock-paper-money/user
+    image: gcr.io/49359a486adb/user
     networks:
         - backend
     build:
@@ -95,7 +95,7 @@ services:
       - 8082:8080
 
   kafka-proxy:
-    image: gcr.io/jnp-rock-paper-money/kafka-proxy
+    image: gcr.io/49359a486adb/kafka-proxy
     networks:
       - backend
     build:
