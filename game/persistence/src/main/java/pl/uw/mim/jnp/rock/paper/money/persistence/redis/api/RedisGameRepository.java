@@ -54,6 +54,7 @@ public class RedisGameRepository {
     HandSign handSignEnum = HandSign.valueOf(handSign);
 
     playerMoveEntity.setHandSign(handSignEnum);
+    gameEntity.setHasStarted(true);
     gameEntity.setPlayerMove(playerMoveEntity, playerNumber);
 
     gameRepository.save(gameEntity);
@@ -88,5 +89,22 @@ public class RedisGameRepository {
   public Optional<Integer> getStake(Long gameId) {
     return gameRepository.findById(gameId)
         .map(GameEntity::getStake);
+  }
+
+  public Optional<GameEntity> getNotStartedGameForUsername(String username) {
+    return gameRepository.findAll().stream()
+        .filter(entity -> !entity.getHasStarted())
+        .filter(entity ->
+            compareUsernames(entity.getPlayer1Move(), username) ||
+                compareUsernames(entity.getPlayer2Move(), username))
+        .findFirst();
+  }
+
+  private boolean compareUsernames(PlayerMoveEntity playerMoveEntity, String username) {
+    return playerMoveEntity.getPlayerUsername().equals(username);
+  }
+
+  public Optional<GameEntity> getGameWithId(Long gameId) {
+    return gameRepository.findById(gameId);
   }
 }

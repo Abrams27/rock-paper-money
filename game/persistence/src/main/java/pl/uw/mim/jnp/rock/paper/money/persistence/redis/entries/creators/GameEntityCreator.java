@@ -16,6 +16,7 @@ public class GameEntityCreator {
         .player1Move(player1MoveEntity)
         .player2Move(player2MoveEntity)
         .stake(stake)
+        .hasStarted(false)
         .build();
   }
 

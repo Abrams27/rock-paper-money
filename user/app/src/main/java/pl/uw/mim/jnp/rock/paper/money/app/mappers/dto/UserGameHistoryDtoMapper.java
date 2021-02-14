@@ -3,7 +3,7 @@ package pl.uw.mim.jnp.rock.paper.money.app.mappers.dto;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.experimental.UtilityClass;
-import pl.uw.mim.jnp.rock.paper.money.models.user.UserGameHistoryDto;
+import pl.uw.mim.jnp.rock.paper.money.api.models.user.UserGameHistoryDto;
 import pl.uw.mim.jnp.rock.paper.money.persistence.postgres.entries.history.GameHistoryEntity;
 
 @UtilityClass

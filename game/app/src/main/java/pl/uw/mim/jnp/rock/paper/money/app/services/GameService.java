@@ -3,7 +3,7 @@ package pl.uw.mim.jnp.rock.paper.money.app.services;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import pl.uw.mim.jnp.rock.paper.money.models.HandSign;
+import pl.uw.mim.jnp.rock.paper.money.api.models.HandSign;
 import pl.uw.mim.jnp.rock.paper.money.app.services.models.GameStatus;
 import pl.uw.mim.jnp.rock.paper.money.persistence.redis.api.RedisGameRepository;
 
@@ -49,17 +49,9 @@ public class GameService {
     Optional<String> player2Sign = redisGameRepository.getPlayerHandSign(gameId, 2);
 
     if (player1Sign.isPresent() && player2Sign.isPresent()) {
-      return resolveGameStatusForPlayerSigns(player1Sign.get(), player2Sign.get());
+      return GameStatus.from(player1Sign.get(), player2Sign.get());
     }
 
     return GameStatus.IN_PROGRESS;
-  }
-
-  private GameStatus resolveGameStatusForPlayerSigns(String player1Sign, String player2Sign) {
-    HandSign player1HandSign = HandSign.valueOf(player1Sign);
-    HandSign player2HandSign = HandSign.valueOf(player2Sign);
-    int comparisonResult = player1HandSign.compare(player2HandSign);
-
-    return GameStatus.fromComparisonPlayer1WithPlayer2Result(comparisonResult);
   }
 }
