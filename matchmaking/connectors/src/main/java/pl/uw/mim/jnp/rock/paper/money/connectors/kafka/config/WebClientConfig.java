@@ -17,7 +17,7 @@ public class WebClientConfig {
 
   @Bean
   public WebClient webClient() {
-    return WebClient.builder().baseUrl("http://game:8080").build();
+    return WebClient.builder().baseUrl("http://game:8080/api/game-service/game").build();
   }
 
 }

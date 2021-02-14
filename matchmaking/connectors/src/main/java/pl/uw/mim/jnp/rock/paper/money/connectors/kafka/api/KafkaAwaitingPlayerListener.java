@@ -17,8 +17,6 @@ public class KafkaAwaitingPlayerListener {
 
   @KafkaListener(topics = "awaiting.player.stake.1")
   void topic1Listener(String playerUsername) {
-    System.out.println(playerUsername + "applied to play the game at stake ");
-//    System.out.println(kafkaAwaitingPlayerTopicsProperties.getStakes().get("topic1"));
     awaitingPlayerService
         .handleAwaitingPlayer(playerUsername, 1);
   }
