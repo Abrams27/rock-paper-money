@@ -45,7 +45,7 @@ services:
       - backend
 
   game:
-    image: gcr.io/49359a486adb/game
+    image: gcr.io/mesmerizing-app-280416/game
     networks:
       - backend
     build:
@@ -58,7 +58,7 @@ services:
       - 8081:8080
 
   gateway:
-    image: gcr.io/49359a486adb/gateway
+    image: gcr.io/mesmerizing-app-280416/gateway
     networks:
         - backend
         - frontend
@@ -68,7 +68,7 @@ services:
       - kafka
 
   matchmaking:
-    image: gcr.io/49359a486adb/matchmaking
+    image: gcr.io/mesmerizing-app-280416/matchmaking
     networks:
         - backend
     build:
@@ -82,7 +82,7 @@ services:
       - backend
 
   user:
-    image: gcr.io/49359a486adb/user
+    image: gcr.io/mesmerizing-app-280416/user
     networks:
         - backend
     build:
@@ -95,7 +95,7 @@ services:
       - 8082:8080
 
   kafka-proxy:
-    image: gcr.io/49359a486adb/kafka-proxy
+    image: gcr.io/mesmerizing-app-280416/kafka-proxy
     networks:
       - backend
     build:
