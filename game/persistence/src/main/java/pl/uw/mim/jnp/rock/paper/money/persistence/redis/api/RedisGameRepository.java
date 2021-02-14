@@ -1,6 +1,5 @@
 package pl.uw.mim.jnp.rock.paper.money.persistence.redis.api;
 
-import java.util.List;
 import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -94,13 +93,10 @@ public class RedisGameRepository {
 
   public Optional<GameEntity> getNotStartedGameForUsername(String username) {
     return gameRepository.findAll().stream()
-        .peek(System.out::println)
         .filter(entity -> !entity.getHasStarted())
-        .peek(System.out::println)
         .filter(entity ->
             compareUsernames(entity.getPlayer1Move(), username) ||
                 compareUsernames(entity.getPlayer2Move(), username))
-        .peek(System.out::println)
         .findFirst();
   }
 

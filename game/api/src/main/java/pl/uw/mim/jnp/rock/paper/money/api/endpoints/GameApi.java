@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import pl.uw.mim.jnp.rock.paper.money.api.models.GameEntranceDto;
 import pl.uw.mim.jnp.rock.paper.money.api.models.GameProgress;
 import pl.uw.mim.jnp.rock.paper.money.api.models.GameRegistrationDto;
+import pl.uw.mim.jnp.rock.paper.money.api.models.GameResultResponseDto;
 import pl.uw.mim.jnp.rock.paper.money.api.models.UserGameResponseDto;
 import reactor.core.publisher.Mono;
 
@@ -30,4 +31,9 @@ public interface GameApi {
   @GetMapping("/{gameId}/info")
   Mono<GameProgress> gameInfo(
       @PathVariable("gameId") Long gameId);
+
+  @GetMapping("/{gameId}/result")
+  Mono<GameResultResponseDto> gameResult(
+      @PathVariable("gameId") Long gameId,
+      @RequestParam("username") String username);
 }

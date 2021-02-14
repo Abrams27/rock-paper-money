@@ -6,9 +6,11 @@ import pl.uw.mim.jnp.rock.paper.money.api.endpoints.GameApi;
 import pl.uw.mim.jnp.rock.paper.money.api.models.GameEntranceDto;
 import pl.uw.mim.jnp.rock.paper.money.api.models.GameProgress;
 import pl.uw.mim.jnp.rock.paper.money.api.models.GameRegistrationDto;
+import pl.uw.mim.jnp.rock.paper.money.api.models.GameResultResponseDto;
 import pl.uw.mim.jnp.rock.paper.money.api.models.UserGameResponseDto;
 import pl.uw.mim.jnp.rock.paper.money.app.usecases.game.EnterGame;
 import pl.uw.mim.jnp.rock.paper.money.app.usecases.game.GameInfo;
+import pl.uw.mim.jnp.rock.paper.money.app.usecases.game.GameResult;
 import pl.uw.mim.jnp.rock.paper.money.app.usecases.game.NewGame;
 import pl.uw.mim.jnp.rock.paper.money.app.usecases.game.RegisterGame;
 import reactor.core.publisher.Mono;
@@ -21,6 +23,7 @@ public class GameController implements GameApi {
   private final EnterGame enterGame;
   private final NewGame newGame;
   private final GameInfo gameInfo;
+  private final GameResult gameResult;
 
   @Override
   public Mono<Void> registerGame(GameRegistrationDto gameRegistration) {
@@ -40,5 +43,10 @@ public class GameController implements GameApi {
   @Override
   public Mono<GameProgress> gameInfo(Long gameId) {
     return gameInfo.execute(gameId);
+  }
+
+  @Override
+  public Mono<GameResultResponseDto> gameResult(Long gameId, String username) {
+    return gameResult.execute(gameId, username);
   }
 }
