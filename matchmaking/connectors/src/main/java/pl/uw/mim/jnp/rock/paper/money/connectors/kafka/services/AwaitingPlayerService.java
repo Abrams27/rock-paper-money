@@ -16,27 +16,24 @@ public class AwaitingPlayerService {
 
   private RedisAwaitingPlayerRepository redisAwaitingPlayerRepository;
   private RedisLastGameIdRepository redisLastGameIdRepository;
-  private WebClient webClient;
-  @Value("#{${game.service.registration.uri}}")
-  private String registrationApiUri;
+
+  private final WebClient webClient;
+
+//  @Value("#{${game.service.registration.uri}}")
+//  private final String registrationApiUri;
 
 
   public void handleAwaitingPlayer(String playerUsername, Integer stake) {
-    System.out.println("Starting handling player " + playerUsername + " at stake " + stake);
     if (redisAwaitingPlayerRepository.isPlayerAwaitingOnStake(stake)) {
-      System.out.println("A player was already waiting at the stake");
       registerNewGame(playerUsername, redisAwaitingPlayerRepository.getAwaitingPlayerUsername(stake), stake);
     } else {
-      System.out.println("No player was waiting at the stake. Saving player");
       redisAwaitingPlayerRepository.saveAwaitingPlayer(playerUsername, stake);
-      System.out.println("Player saved. Check: " + redisAwaitingPlayerRepository.isPlayerAwaitingOnStake(stake));
     }
   }
   private void postGameRegistration(GameRegistrationDto gameRegistrationDto)
   {
-    System.out.println(webClient.toString());
     webClient.post()
-        .uri(registrationApiUri)
+        .uri("/register")
         .body(Mono.just(gameRegistrationDto), GameRegistrationDto.class)
         .retrieve()
         .bodyToMono(Void.class);
@@ -51,7 +48,6 @@ public class AwaitingPlayerService {
         .player2Username(playerUsername2)
         .stake(stake)
         .build();
-    System.out.println("Registering new game"+ registrationDto.toString());
     postGameRegistration(registrationDto);
   }
 
