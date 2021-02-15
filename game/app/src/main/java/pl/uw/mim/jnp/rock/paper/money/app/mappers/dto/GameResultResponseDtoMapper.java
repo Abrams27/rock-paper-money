@@ -51,6 +51,10 @@ public class GameResultResponseDtoMapper {
       return GameResult.WIN;
     }
 
-    return GameResult.DRAW;
+    if (gameStatus.equals(GameStatus.DRAW)) {
+      return GameResult.DRAW;
+    }
+
+    return GameResult.LOSE;
   }
 }

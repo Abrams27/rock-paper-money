@@ -30,15 +30,29 @@ public class GameHistoryService {
     String username = gameHistoryDto.getUsername1();
     String opponentUsername = gameHistoryDto.getUsername2();
     GameResult gameResult = GameResultMapper.map(gameHistoryDto.getGameResult(), 1);
+    Integer stakeDiff = getStakeDiff(gameResult, 1, gameHistoryDto.getStake());
 
-    return postGameHistoryForUser.postGameHistoryForUser(username, opponentUsername, gameResult, gameHistoryDto.getStake());
+    return postGameHistoryForUser.postGameHistoryForUser(username, opponentUsername, gameResult, gameHistoryDto.getStake(), stakeDiff);
   }
 
   private GameHistoryEntity postGameHistoryForUser2(GameHistoryDto gameHistoryDto) {
     String username = gameHistoryDto.getUsername2();
     String opponentUsername = gameHistoryDto.getUsername1();
     GameResult gameResult = GameResultMapper.map(gameHistoryDto.getGameResult(), 2);
+    Integer stakeDiff = getStakeDiff(gameResult, 2, gameHistoryDto.getStake());
 
-    return postGameHistoryForUser.postGameHistoryForUser(username, opponentUsername, gameResult, gameHistoryDto.getStake());
+    return postGameHistoryForUser.postGameHistoryForUser(username, opponentUsername, gameResult, gameHistoryDto.getStake(), stakeDiff);
+  }
+
+  private Integer getStakeDiff(GameResult gameResult, int playerNumber, Integer stake) {
+    if (gameResult.equals(GameResult.WIN)) {
+      return stake;
+    }
+
+    if (gameResult.equals(GameResult.LOSE)) {
+      return -stake;
+    }
+
+    return 0;
   }
 }

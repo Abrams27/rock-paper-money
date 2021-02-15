@@ -57,15 +57,9 @@ public class EnterGame {
   }
 
   private Mono<Void> notifyPlayersAndUpdateGameHistories(PlayersNotification playersNotification) {
-    Mono<Void> kafkaNotification = Mono.just(playersNotification)
+    return Mono.just(playersNotification)
         .filter(notification -> !notification.getGameStatus().equals(GameStatus.IN_PROGRESS))
-        .flatMap(notificationService::notifyPlayersAboutResult);
-
-    Mono<Void> userServiceCall = Mono.just(playersNotification)
-        .filter(notification -> !notification.getGameStatus().equals(GameStatus.IN_PROGRESS))
-        .flatMap(notificationService::updatePlayersGameHistories);
-
-    return Mono.zip(kafkaNotification, userServiceCall)
+        .flatMap(notificationService::updatePlayersGameHistories)
         .then();
   }
 }

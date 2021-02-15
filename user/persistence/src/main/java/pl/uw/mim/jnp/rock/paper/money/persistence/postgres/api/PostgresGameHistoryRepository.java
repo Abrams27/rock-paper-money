@@ -15,14 +15,16 @@ public class PostgresGameHistoryRepository {
   private final GameHistoryRepository gameHistoryRepository;
   private final UserInfoRepository userInfoRepository;
 
-  public GameHistoryEntity postGameHistoryForUser(String username, String opponentsUsername, GameResult gameResult, Integer stake) {
+  public GameHistoryEntity postGameHistoryForUser(String username, String opponentsUsername, GameResult gameResult, Integer stake, Integer stakeDiff) {
     return userInfoRepository.findByUsername(username)
-        .map(userInfoEntity -> createGameHistoryEntity(userInfoEntity, opponentsUsername, gameResult, stake))
+        .map(userInfoEntity -> createGameHistoryEntity(userInfoEntity, opponentsUsername, gameResult, stake, stakeDiff))
         .map(gameHistoryRepository::save)
         .orElseThrow();
   }
 
-  private GameHistoryEntity createGameHistoryEntity(UserInfoEntity userInfoEntity, String opponentsUsername, GameResult gameResult, Integer stake) {
+  private GameHistoryEntity createGameHistoryEntity(UserInfoEntity userInfoEntity, String opponentsUsername, GameResult gameResult, Integer stake, Integer stakeDiff) {
+    userInfoEntity.setBalance(userInfoEntity.getBalance() + stakeDiff);
+
     return GameHistoryEntity.builder()
         .userInfoEntity(userInfoEntity)
         .gameResult(gameResult)
