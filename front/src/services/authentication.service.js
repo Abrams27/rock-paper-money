@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const AUTH_API_URL = "http://localhost:8082/api/user-service/auth/";
+const AUTH_API_URL = "http://user:8080/api/user-service/auth";
 
 class AuthenticationService {
 	jwtHeader() {
@@ -23,7 +23,7 @@ class AuthenticationService {
 
 	login(user) {
 		return axios
-			.post(AUTH_API_URL + "login", {
+			.post(AUTH_API_URL + "/" + "login", {
 				username: user.username,
 				password: user.password,
 			})
@@ -41,7 +41,7 @@ class AuthenticationService {
 
 	logout() {
 		axios
-		.get(AUTH_API_URL + "logout", {
+		.get(AUTH_API_URL + "/" + "logout", {
 			headers: this.jwtHeader(),
 		}).then(() =>{
 			localStorage.removeItem("user");

@@ -1,13 +1,13 @@
 import axios from "axios";
 import AuthorizationService from "./authentication.service";
 
-const USER_API_URL = "http://localhost:8082/api/user-service/user/";
+const USER_API_URL = "http://user:8080/api/user-service/user";
 
 class UserService {
 
   getGameHistory(user) {
     return axios
-    .get(USER_API_URL + user.username + "/info", {
+    .get(USER_API_URL + "/" + user.username + "/info", {
       headers: AuthorizationService.jwtHeader(),
     })
     .then(successResponse => {
@@ -16,7 +16,7 @@ class UserService {
   }
 
   register(user) {
-    return axios.post(USER_API_URL + "register", {
+    return axios.post(USER_API_URL + "/" + "register", {
       username: user.username,
       password: user.password,
     }).catch(() => {
