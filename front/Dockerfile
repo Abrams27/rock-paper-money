@@ -7,10 +7,9 @@ RUN npm install -g http-server
 COPY package*.json ./
 
 RUN npm install
+RUN npm install @vue/cli@3.7.0 -g
 
 COPY . .
 
-RUN npm run build
-
-EXPOSE 8080
-CMD [ "http-server", "dist" ]
+# start app
+CMD ["npm", "run", "serve"]
