@@ -13,7 +13,6 @@ export default {
   name: "AppNavigation",
   computed: {
     loggedIn() {
-      // return true;
       return this.$store.state.auth.status.loggedIn;
     },
   },
@@ -21,7 +20,6 @@ export default {
     handleLogout() {
         this.$store.dispatch("auth/logout", this.user).then(
             () => {
-              console.log(this.$route);
               localStorage.removeItem("user")
               this.$router.push("/login");
             },

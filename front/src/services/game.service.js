@@ -37,9 +37,6 @@ class GameService {
   }
 
   enterGame(user, handSign, gameId) {
-    console.log(user)
-    console.log(handSign)
-    console.log(gameId)
     return axios
     .post(GAME_API_URL + "enter", {
           gameId: gameId,
