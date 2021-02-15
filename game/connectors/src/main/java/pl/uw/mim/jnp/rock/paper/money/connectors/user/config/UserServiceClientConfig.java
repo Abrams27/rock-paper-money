@@ -19,6 +19,6 @@ public class UserServiceClientConfig {
   }
 
   private String getBaseUserServiceUrl() {
-    return String.format("%s:%d", userServiceClientProperties.getHost(), userServiceClientProperties.getPort());
+    return String.format("http://%s:%d", userServiceClientProperties.getHost(), userServiceClientProperties.getPort());
   }
 }
