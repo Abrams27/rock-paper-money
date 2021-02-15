@@ -1,5 +1,6 @@
 package pl.uw.mim.jnp.rock.paper.money.api.endpoints;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,6 +14,7 @@ import pl.uw.mim.jnp.rock.paper.money.api.models.GameResultResponseDto;
 import pl.uw.mim.jnp.rock.paper.money.api.models.UserGameResponseDto;
 import reactor.core.publisher.Mono;
 
+@CrossOrigin
 @RequestMapping("/api/game-service/game")
 public interface GameApi {
 

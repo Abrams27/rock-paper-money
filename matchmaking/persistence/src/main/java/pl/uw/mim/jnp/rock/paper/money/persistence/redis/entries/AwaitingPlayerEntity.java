@@ -13,7 +13,6 @@ public class AwaitingPlayerEntity {
 
   private @Id Long id;
 
-
   private @Indexed Integer stake;
 
   private String playerUsername;

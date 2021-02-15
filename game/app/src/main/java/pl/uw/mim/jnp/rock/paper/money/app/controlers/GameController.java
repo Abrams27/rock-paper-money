@@ -27,7 +27,6 @@ public class GameController implements GameApi {
 
   @Override
   public Mono<Void> registerGame(GameRegistrationDto gameRegistration) {
-    System.out.println("Registering game with id: " + gameRegistration.getGameId());
     return registerGame.execute(gameRegistration);
   }
 
