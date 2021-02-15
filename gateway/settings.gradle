@@ -1,6 +1,0 @@
-rootProject.name = 'gateway'
-
-include 'api'
-include 'connectors'
-include 'persistence'
-include 'app'

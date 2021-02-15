@@ -1,6 +1,8 @@
 package pl.uw.mim.jnp.rock.paper.money.connectors.kafka.services;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import pl.uw.mim.jnp.rock.paper.money.connectors.kafka.api.models.GameRegistrationDto;
@@ -37,9 +39,13 @@ public class AwaitingPlayerService {
   }
 
   private void postGameRegistration(GameRegistrationDto gameRegistrationDto) {
+    System.out.println("XDDDD ->" + gameRegistrationDto);
     webClient.post()
         .uri("/register")
         .body(Mono.just(gameRegistrationDto), GameRegistrationDto.class)
-        .retrieve();
+        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+        .retrieve()
+        .bodyToMono(Void.class)
+        .block();
   }
 }

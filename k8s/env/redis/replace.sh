@@ -5,3 +5,6 @@ kubectl replace -f redis-user.service.yml --force
 
 kubectl replace -f redis-game.deployment.yml --force
 kubectl replace -f redis-game.service.yml --force
+
+kubectl replace -f redis-matchmaking.deployment.yml --force
+kubectl replace -f redis-matchmaking.service.yml --force
