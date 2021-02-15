@@ -3,6 +3,14 @@
     <v-layout>
       <v-btn v-if="loggedIn" to="/game">Zagraj</v-btn>
     </v-layout>
+
+    <v-layout>
+        Witaj {{username}}!
+    </v-layout>
+    <v-layout>
+        Twój balans wynosi {{balance}} Harnasi.
+    </v-layout>
+
     <v-data-table :headers="headers" :items="gameHistory">
       <template v-slot:item="row">
         <tr>
@@ -23,6 +31,7 @@ export default {
     return {
       gameHistory: [],
       balance: null,
+      username:null,
       headers: [
         { text: 'Przeciwnik', value: 'Przeciwnik' },
         { text: 'Stawka', value: 'Stawka' },
@@ -56,6 +65,8 @@ export default {
         UserService.getGameHistory(this.currentUser).then(
             successResponse => {
               this.gameHistory = successResponse.data.gameHistory;
+              this.balance = successResponse.data.balance;
+              this.username = successResponse.data.username;
             },
             errorResponse => {
               console.log(errorResponse);

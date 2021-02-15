@@ -21,6 +21,8 @@ export default {
     handleLogout() {
         this.$store.dispatch("auth/logout", this.user).then(
             () => {
+              console.log(this.$route);
+              localStorage.removeItem("user")
               this.$router.push("/login");
             },
             error => {

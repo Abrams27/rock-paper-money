@@ -46,7 +46,7 @@ let router = new Router({
 
 router.beforeEach((to, from, next) => {
   let user = JSON.parse(localStorage.getItem("user"));
-  if (to.matched.some(record => record.meta.requiresAuth)) {
+  if (to.matched.some(record => record.meta.requireAuth)) {
     if (!user) {
       next({path: '/login'});
     } else {
@@ -63,9 +63,5 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
-
-router.replace({path: '*', redirect: '/player'}).then(
-
-)
 
 export default router;

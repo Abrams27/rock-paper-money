@@ -43,7 +43,9 @@ class AuthenticationService {
 		axios
 		.get(AUTH_API_URL + "logout", {
 			headers: this.jwtHeader(),
-		}).then(() =>localStorage.removeItem("user"));
+		}).then(() =>{
+			localStorage.removeItem("user");
+		});
 	}
 }
 

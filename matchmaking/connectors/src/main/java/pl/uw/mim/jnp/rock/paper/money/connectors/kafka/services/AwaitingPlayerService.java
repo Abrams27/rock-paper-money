@@ -35,6 +35,7 @@ public class AwaitingPlayerService {
         .player2Username(playerUsername2)
         .stake(stake)
         .build();
+    System.out.println(registrationDto);
     postGameRegistration(registrationDto);
   }
 

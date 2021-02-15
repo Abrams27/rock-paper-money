@@ -26,7 +26,20 @@ class GameService {
     });
   }
 
+  newGame(user){
+    return axios
+    .get(GAME_API_URL + "user/new?username=" + user.username, {
+      headers: AuthorizationService.jwtHeader(),
+    })
+    .then(successResponse => {
+      return successResponse;
+    });
+  }
+
   enterGame(user, handSign, gameId) {
+    console.log(user)
+    console.log(handSign)
+    console.log(gameId)
     return axios
     .post(GAME_API_URL + "enter", {
           gameId: gameId,
