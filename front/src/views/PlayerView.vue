@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <v-layout>
-      <new-debtor-dialog></new-debtor-dialog>
+      <v-btn v-if="loggedIn" to="/game">Zagraj</v-btn>
     </v-layout>
     <v-data-table :headers="headers" :items="gameHistory">
       <template v-slot:item="row">
@@ -16,13 +16,9 @@
 </template>
 <script>
 import UserService from "../services/user.service";
-import NewDebtorDialog from "@/components/NewDebtorDialog";
 
 export default {
   name: "PlayerView",
-  components: {
-    NewDebtorDialog,
-  },
   data() {
     return {
       gameHistory: [],

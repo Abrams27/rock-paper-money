@@ -40,24 +40,11 @@ class AuthenticationService {
 	}
 
 	logout() {
-		// localStorage.removeItem("user")
 		axios
 		.get(AUTH_API_URL + "logout", {
 			headers: this.jwtHeader(),
 		}).then(() =>localStorage.removeItem("user"));
 	}
-
-	// authorize() {
-	// 	return axios.post(USER_SERVICE_URL + "authorize", {
-	// 		headers: this.jwtHeader(),
-	// 	})
-	// 		.then(successResponse => {
-	// 			return true;
-	// 		})
-	// 		.catch(errorResponse => {
-	// 			return false;
-	// 		});
-	// }
 }
 
 export default new AuthenticationService();

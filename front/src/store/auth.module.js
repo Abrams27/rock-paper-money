@@ -10,6 +10,7 @@ const initialState = user
 export const auth = {
 	namespaced: true,
 	state: initialState,
+
 	actions: {
 		async login({commit}, user) {
 			return await AuthService.login(user).then(
@@ -23,10 +24,12 @@ export const auth = {
 				},
 			);
 		},
+
 		logout({commit}) {
 			AuthService.logout();
 			commit("logout");
 		},
+
 		register({commit}, user) {
 			return UserService.register(user).then(
 				response => {
