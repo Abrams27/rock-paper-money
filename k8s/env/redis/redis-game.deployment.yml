@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: redis-user
+  name: redis-game
   labels:
     app: redis-game
     tier: backend
