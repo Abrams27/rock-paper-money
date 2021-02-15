@@ -3,7 +3,7 @@ apiVersion: apps/v1
 metadata:
   name: postgres
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: postgres
@@ -14,15 +14,14 @@ spec:
     spec:
       containers:
         - name: postgres
-          image: postgres:10.4
-          imagePullPolicy: "IfNotPresent"
+          image: postgres
           ports:
             - containerPort: 5432
           envFrom:
             - configMapRef:
                 name: postgres-config
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
+            - mountPath: /var/lib/postgresql
               name: postgresdb
       volumes:
         - name: postgresdb
