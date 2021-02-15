@@ -1,6 +1,5 @@
 package pl.uw.mim.jnp.rock.paper.money.connectors.kafka.api.models;
 
-
 import lombok.Builder;
 import lombok.Data;
 

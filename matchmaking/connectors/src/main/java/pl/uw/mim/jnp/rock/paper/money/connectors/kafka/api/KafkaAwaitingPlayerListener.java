@@ -1,19 +1,15 @@
 package pl.uw.mim.jnp.rock.paper.money.connectors.kafka.api;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
-import pl.uw.mim.jnp.rock.paper.money.connectors.kafka.config.KafkaAwaitingPlayerTopicsProperties;
 import pl.uw.mim.jnp.rock.paper.money.connectors.kafka.services.AwaitingPlayerService;
 
 @Component
+@AllArgsConstructor
 public class KafkaAwaitingPlayerListener {
 
-  @Autowired
-  private KafkaAwaitingPlayerTopicsProperties kafkaAwaitingPlayerTopicsProperties;
-
-  @Autowired
-  private AwaitingPlayerService awaitingPlayerService;
+  private final AwaitingPlayerService awaitingPlayerService;
 
   @KafkaListener(topics = "awaiting.player.stake.1")
   void topic1Listener(String playerUsername) {
@@ -44,5 +40,4 @@ public class KafkaAwaitingPlayerListener {
     awaitingPlayerService
         .handleAwaitingPlayer(playerUsername, 20);
   }
-
 }
