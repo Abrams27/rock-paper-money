@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: matchmaking-deploy
+  labels:
+    app: matchmaking
+    tier: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: matchmaking
+  template:
+    metadata:
+      labels:
+        app: matchmaking
+    spec:
+      containers:
+        - name: matchmaking
+          image: gcr.io/mesmerizing-app-280416/matchmaking
+          ports:
+            - containerPort: 8080

@@ -75,6 +75,7 @@ services:
       context: ./matchmaking
     depends_on:
       - kafka
+      - matchmaking-redis
 
   user-redis:
     image: 'redis:latest'
