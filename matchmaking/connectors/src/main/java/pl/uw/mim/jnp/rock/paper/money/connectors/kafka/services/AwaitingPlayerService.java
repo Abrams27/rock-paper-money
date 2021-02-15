@@ -37,6 +37,7 @@ public class AwaitingPlayerService {
   }
 
   private void postGameRegistration(GameRegistrationDto gameRegistrationDto) {
+    System.out.println("XDDDD ->" + gameRegistrationDto);
     webClient.post()
         .uri("/register")
         .body(Mono.just(gameRegistrationDto), GameRegistrationDto.class)
