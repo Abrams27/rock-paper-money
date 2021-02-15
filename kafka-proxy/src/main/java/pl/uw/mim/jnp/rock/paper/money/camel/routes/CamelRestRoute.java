@@ -11,7 +11,7 @@ public class CamelRestRoute {
   private final CamelRestProperties camelRestProperties;
 
   public String getRoute(Integer stake) {
-    return String.format("restlet:http://kafka-proxy:%d%s/%d?restletMethod=post",
+    return String.format("restlet:http://0.0.0.0:%d%s/%d?restletMethod=post",
         camelRestProperties.getPort(),
         camelRestProperties.getEndpoint(),
         stake);
