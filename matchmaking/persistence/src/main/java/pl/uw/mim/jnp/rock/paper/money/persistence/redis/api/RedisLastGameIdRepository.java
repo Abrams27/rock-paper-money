@@ -19,7 +19,7 @@ public class RedisLastGameIdRepository {
         .stream(lastGameIdRepository.findAll().spliterator(), false)
         .findAny()
         .orElse(
-            LastGameIdEntityCreator.from(0L));
+            LastGameIdEntityCreator.from(100L));
 
     gameIdEntity.setGameId(gameIdEntity.getGameId() + 1);
     return lastGameIdRepository.save(gameIdEntity).getGameId();
