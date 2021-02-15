@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-proxy-deploy
+  labels:
+    app: kafka-proxy
+    tier: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: kafka-proxy
+  template:
+    metadata:
+      labels:
+        app: kafka-proxy
+    spec:
+      containers:
+        - name: kafka-proxy
+          image: gcr.io/mesmerizing-app-280416/kafka-proxy
+          ports:
+            - containerPort: 8080
