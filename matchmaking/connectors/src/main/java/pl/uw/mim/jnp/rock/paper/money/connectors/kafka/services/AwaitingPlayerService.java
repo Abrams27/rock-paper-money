@@ -44,6 +44,8 @@ public class AwaitingPlayerService {
         .uri("/register")
         .body(Mono.just(gameRegistrationDto), GameRegistrationDto.class)
         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-        .exchange();
+        .retrieve()
+        .bodyToMono(Void.class)
+        .block();
   }
 }
