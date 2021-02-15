@@ -68,7 +68,7 @@ export default {
   },
   created() {
     if (this.loggedIn) {
-      this.$router.push("/debtors");
+      this.$router.push("/player");
     }
   },
   methods: {
@@ -77,7 +77,7 @@ export default {
       if (this.$refs.form.validate()) {
         await this.$store.dispatch("auth/login", this.user).then(
             () => {
-              this.$router.push("/debtors");
+              this.$router.push("/player");
             },
             error => {
               this.loading = false;

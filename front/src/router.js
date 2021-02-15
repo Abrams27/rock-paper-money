@@ -9,8 +9,8 @@ const router = new Router({
 	mode: 'history',
 	routes: [
 		{
-			path: '/debtors',
-			component: () => import('./views/DebtorsView.vue')
+			path: '/player',
+			component: () => import('./views/PlayerView.vue')
 		},
 		{
 			path: '/login',

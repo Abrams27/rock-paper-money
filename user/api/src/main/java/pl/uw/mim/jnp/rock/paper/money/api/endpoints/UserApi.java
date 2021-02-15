@@ -1,5 +1,6 @@
 package pl.uw.mim.jnp.rock.paper.money.api.endpoints;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +11,7 @@ import pl.uw.mim.jnp.rock.paper.money.api.models.user.RegisterUserDataDto;
 import pl.uw.mim.jnp.rock.paper.money.api.models.user.UserInfoDto;
 import reactor.core.publisher.Mono;
 
+@CrossOrigin
 @RequestMapping("/api/user-service/user")
 public interface UserApi {
 

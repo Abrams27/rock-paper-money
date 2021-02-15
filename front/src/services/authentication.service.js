@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const USER_SERVICE_URL = "http://localhost:1327/";
+const AUTH_API_URL = "http://localhost:8082/api/user-service/auth/";
 
 class AuthenticationService {
 	jwtHeader() {
@@ -23,13 +23,16 @@ class AuthenticationService {
 
 	login(user) {
 		return axios
-			.post(USER_SERVICE_URL + "authenticate", {
+			.post(AUTH_API_URL + "login", {
 				username: user.username,
 				password: user.password,
 			})
 			.then(successResponse => {
-				if (successResponse.data.jwt) {
-					localStorage.setItem("user", JSON.stringify(successResponse.data));
+				if (successResponse.data.token) {
+					localStorage.setItem("user", JSON.stringify({
+						username: user.username,
+						jwt: successResponse.data.token,
+					}));
 				}
 			}).catch(() => {
 				console.log("Login fail");
@@ -37,16 +40,11 @@ class AuthenticationService {
 	}
 
 	logout() {
-		localStorage.removeItem("user");
-	}
-
-	register(user) {
-		return axios.post(USER_SERVICE_URL + "register", {
-			username: user.username,
-			password: user.password,
-		}).catch(() => {
-			console.log("Login fail");
-		});
+		// localStorage.removeItem("user")
+		axios
+		.get(AUTH_API_URL + "logout", {
+			headers: this.jwtHeader(),
+		}).then(() =>localStorage.removeItem("user"));
 	}
 
 	// authorize() {

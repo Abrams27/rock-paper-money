@@ -3,43 +3,42 @@
     <v-layout>
       <new-debtor-dialog></new-debtor-dialog>
     </v-layout>
-    <v-data-table :headers="headers" :items="debtors">
+    <v-data-table :headers="headers" :items="gameHistory">
       <template v-slot:item="row">
         <tr>
-          <td>{{ row.item.debtorUsername }}</td>
-          <td>
-            <v-btn class="mx-2" color="blue darken-2" @click="onButtonClick(row.item)">
-              Zarządzaj długami
-            </v-btn>
-          </td>
+          <td>{{ row.item.opponentsUsername }}</td>
+          <td>{{ row.item.stake }}</td>
+          <td>{{ row.item.userGameResult }}</td>
         </tr>
       </template>
     </v-data-table>
   </v-container>
 </template>
 <script>
-import DebtsService from "../services/debts.service";
+import UserService from "../services/user.service";
 import NewDebtorDialog from "@/components/NewDebtorDialog";
 
 export default {
-  name: "DebtorsView",
+  name: "PlayerView",
   components: {
     NewDebtorDialog,
   },
   data() {
     return {
-      debtors: [],
+      gameHistory: [],
+      balance: null,
       headers: [
-        { text: 'Dłużnik', value: 'Dłużnik' },
-        { text: 'Dodaj dług', value: 'Dodaj dług' },
+        { text: 'Przeciwnik', value: 'Przeciwnik' },
+        { text: 'Stawka', value: 'Stawka' },
+        { text: 'Rezultat', value: 'Rezultat' },
       ],
     };
   },
 
   computed: {
     loggedIn() {
-      return true;
-      // return this.$store.state.auth.status.loggedIn;
+      // return true;
+      return this.$store.state.auth.status.loggedIn;
     },
     currentUser() {
       return this.$store.state.auth.user;
@@ -58,9 +57,9 @@ export default {
       if (!this.loggedIn) {
         this.$router.push("/login");
       } else {
-        DebtsService.getDebtorList(this.currentUser).then(
+        UserService.getGameHistory(this.currentUser).then(
             successResponse => {
-              this.debtors = successResponse.data;
+              this.gameHistory = successResponse.data.gameHistory;
             },
             errorResponse => {
               console.log(errorResponse);
@@ -69,9 +68,9 @@ export default {
       }
 
     },
-    onButtonClick(item) {
-      this.$router.push("/debtor/"+item.debtorUsername);
-    },
+    // onButtonClick(item) {
+    //   this.$router.push("/debtor/"+item.debtorUsername);
+    // },
 
   },
 };
