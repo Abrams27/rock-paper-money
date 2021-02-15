@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-user
+  labels:
+    app: redis-game
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis-game
+  template:
+    metadata:
+      labels:
+        app: redis-game
+        tier: backend
+    spec:
+      containers:
+        - name: redis-game
+          image: "docker.io/redis:6.0.5"
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+          ports:
+            - containerPort: 6379
