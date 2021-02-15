@@ -1,7 +1,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: postgres-claim
+  name: postgres-volume-claim
   labels:
     app: postgres
 spec:
