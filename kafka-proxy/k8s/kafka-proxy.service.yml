@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-proxy
+  labels:
+    app: kafka-proxy
+spec:
+  ports:
+      - port: 8080
+  selector:
+    app: kafka-proxy
