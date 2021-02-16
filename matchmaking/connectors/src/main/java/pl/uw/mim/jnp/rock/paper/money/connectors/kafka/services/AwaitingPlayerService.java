@@ -35,12 +35,10 @@ public class AwaitingPlayerService {
         .player2Username(playerUsername2)
         .stake(stake)
         .build();
-    System.out.println(registrationDto);
     postGameRegistration(registrationDto);
   }
 
   private void postGameRegistration(GameRegistrationDto gameRegistrationDto) {
-    System.out.println("XDDDD ->" + gameRegistrationDto);
     webClient.post()
         .uri("/register")
         .body(Mono.just(gameRegistrationDto), GameRegistrationDto.class)
