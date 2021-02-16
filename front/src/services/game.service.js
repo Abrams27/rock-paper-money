@@ -8,7 +8,7 @@ class GameService {
 
   getGameStatus(gameId){
     return axios
-    .get(GAME_API_URL + gameId + "/" + "/info" , {
+    .get(GAME_API_URL + gameId + "/info" , {
       headers: AuthorizationService.jwtHeader(),
     })
     .then(successResponse => {
