@@ -1,8 +1,7 @@
 import axios from "axios";
 import AuthorizationService from "./authentication.service";
 
-
-const GAME_API_URL = "http://35.230.148.153:8080/api/game";
+const GAME_API_URL = "http://34.89.78.11:8080/api/game";
 
 class GameService {
 
