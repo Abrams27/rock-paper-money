@@ -14,6 +14,7 @@ public class Authenticate {
   private final AuthService authService;
 
   public Mono<Void> execute(String authorizationHeader) {
+    System.out.println("AUTH: " + authorizationHeader);
     return Mono.just(authorizationHeader)
         .map(AuthorizationHeaderParser::getToken)
         .flatMap(authService::authenticate)
