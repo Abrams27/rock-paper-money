@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-deploy
+  labels:
+    app: gateway
+    tier: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: gateway
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: gateway
+        tier: backend
+    spec:
+      containers:
+        - name: gateway
+          image: gcr.io/mesmerizing-app-280416/gateway
+          ports:
+            - containerPort: 8080
