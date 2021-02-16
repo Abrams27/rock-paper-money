@@ -1,7 +1,7 @@
 import axios from "axios";
 import AuthorizationService from "./authentication.service";
 
-const USER_API_URL = "http://user:8080/api/user-service/user";
+const USER_API_URL = "http://35.230.148.153:8080/api/user";
 
 class UserService {
 

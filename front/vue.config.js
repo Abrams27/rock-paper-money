@@ -1,6 +1,6 @@
 module.exports = {
   "devServer": {
-    "port": 2137
+    "port": 8080
   },
 
   "transpileDependencies": [
