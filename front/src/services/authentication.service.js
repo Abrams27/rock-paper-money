@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const AUTH_API_URL = "http://34.89.78.11:8080/api/auth";
+const AUTH_API_URL = "http://35.230.148.153:8080/api/auth";
 
 class AuthenticationService {
 	jwtHeader() {
