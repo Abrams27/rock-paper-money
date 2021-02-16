@@ -4,7 +4,7 @@ import axios from "axios";
 import AuthorizationService from "./authentication.service";
 
 
-const KAFKA_PROXY_URL = "http://kafka-proxy:8080/api/kafka-proxy/match-making/enter";
+const KAFKA_PROXY_URL = "http://34.105.164.202:8080/api/match/enter";
 
 class KafkaProxyService {
 
